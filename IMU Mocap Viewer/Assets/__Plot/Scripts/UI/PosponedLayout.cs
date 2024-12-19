@@ -1,0 +1,29 @@
+using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
+
+public sealed class PosponedLayout : MonoBehaviour
+{
+    [FormerlySerializedAs("topBar"), SerializeField]
+    Transform target;
+
+    [SerializeField] int delayFrames = 3;
+    int countDown;
+
+    void Start()
+    {
+        target.gameObject.SetActive(false);
+
+        countDown = delayFrames;
+    }
+
+    private void Update()
+    {
+        if (--countDown != 0) return; // will fail after 2^31 frames
+
+        target.gameObject.SetActive(true);
+
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(target.GetComponent<RectTransform>());
+    }
+}
