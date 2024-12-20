@@ -96,7 +96,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: b4a1a8c2c8bdb894e85ea3590bc766bb,
+  m_LightingDataAsset: {fileID: 112000000, guid: 46f7844e401001449b07bcf8fc1e2f98,
     type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 0c5835ea1e7509548b14bb8956f53961,
     type: 2}
@@ -1477,41 +1477,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 530305741}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &549798666
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Plot_Stretchable
-  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _PixelScaleFactor: 1
-    - _Thickness: 5
-    m_Colors:
-    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
-    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
-  m_BuildTextureStacks: []
 --- !u!4 &571625657 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6895417865167895507, guid: c2f52b249d313144cb60c7f334336294,
@@ -2752,41 +2717,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -944628639613478452, guid: 2de721e259487624881745db15080062, type: 3}
   m_ActionId: ce5894db-07e1-4a39-8e66-89ed4d883304
---- !u!21 &1493854009
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Plot_Stretchable
-  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _PixelScaleFactor: 1
-    - _Thickness: 4
-    m_Colors:
-    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
-    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
-  m_BuildTextureStacks: []
 --- !u!114 &1585730267
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -103,7 +103,7 @@ namespace Viewer.Editor
 
             mesh.bounds = new Bounds(Vector3.zero, Vector3.one);
             // Save the mesh as an asset
-            string path = "Assets/__Plot/Models/Generated/Stretch Box.asset";
+            string path = "Assets/Viewer/Resources/Stretchable Meshes/Stretch Box.asset";
 
             AssetDatabase.CreateAsset(mesh, path);
 
@@ -217,7 +217,7 @@ namespace Viewer.Editor
         }
     
         [MenuItem("Stretchable Meshes/Generate Cylinder Mesh (6)")]
-        private static void GenerateStretchCylinderMesh6() => GenerateStretchCylinderMesh(6, "Assets/__Plot/Models/Generated/Cylinder.asset");
+        private static void GenerateStretchCylinderMesh6() => GenerateStretchCylinderMesh(6, "Assets/Viewer/Resources/Stretchable Meshes/Cylinder.asset");
     
         private static void GenerateStretchCylinderMeshWithRoundedCaps(int segments, int capSubdivisions, string path)
         {
@@ -391,7 +391,7 @@ namespace Viewer.Editor
         }
 
         [MenuItem("Stretchable Meshes/Generate Capsule Mesh (12, 4)")]
-        private static void GenerateStretchCylinderMeshWithRoundedCaps12() => GenerateStretchCylinderMeshWithRoundedCaps(12, 4, "Assets/__Plot/Models/Generated/Capsule.asset");
+        private static void GenerateStretchCylinderMeshWithRoundedCaps12() => GenerateStretchCylinderMeshWithRoundedCaps(12, 4, "Assets/Viewer/Resources/Stretchable Meshes/Capsule.asset");
 
         private static void GenerateStretchIcosphereMesh(int subdivisions, string path)
         {
@@ -541,7 +541,7 @@ namespace Viewer.Editor
         }
     
         [MenuItem("Stretchable Meshes/Generate Icosphere Mesh (2)")]
-        private static void GenerateStretchIcosphereMesh2() => GenerateStretchIcosphereMesh(2, "Assets/__Plot/Models/Generated/Icosphere.asset");
+        private static void GenerateStretchIcosphereMesh2() => GenerateStretchIcosphereMesh(2, "Assets/Viewer/Resources/Stretchable Meshes/Icosphere.asset");
 
         private static void GenerateStretchSphereMesh(int latitudeSegments, int longitudeSegments, string path)
         {
@@ -632,7 +632,7 @@ namespace Viewer.Editor
         }
     
         [MenuItem("Stretchable Meshes/Generate Sphere Mesh (24x24)")]
-        private static void GenerateStretchSphereMesh24x24() => GenerateStretchSphereMesh(24, 24, "Assets/__Plot/Models/Generated/Sphere.asset");
+        private static void GenerateStretchSphereMesh24x24() => GenerateStretchSphereMesh(24, 24, "Assets/Viewer/Resources/Stretchable Meshes/Sphere.asset");
 
         private static void GenerateStretchTorusMesh(int ringSegments, int tubeSegments, string path)
         {
@@ -730,7 +730,7 @@ namespace Viewer.Editor
         }
     
         [MenuItem("Stretchable Meshes/Generate Circle Mesh (36x12)")]
-        private static void GenerateStretchTorusMesh36x16() => GenerateStretchTorusMesh(36, 12, "Assets/__Plot/Models/Generated/Circle.asset");
+        private static void GenerateStretchTorusMesh36x16() => GenerateStretchTorusMesh(36, 12, "Assets/Viewer/Resources/Stretchable Meshes/Circle.asset");
 
         private static int GetMidPointIndex(int indexA, int indexB, ref List<Vector3> vertices, ref List<Vector4> thickness, ref List<Vector2> uvs, Dictionary<long, int> midPointCache, float radius)
         {

@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/__Plot/Viewer.unity
+    path: Assets/Viewer/Resources/Scenes/Viewer Scene.unity
     guid: 7b09a4ab941635e4ab8c0c21920824fd
   m_configObjects: {}
