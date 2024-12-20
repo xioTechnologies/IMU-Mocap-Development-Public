@@ -1,10 +1,14 @@
-name: Build IMU Mocap Viewer
+name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]
+    tags: [ "*" ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  buildDesktopPlatforms:
-    name: Build for ${{ matrix.targetPlatform }}
+  build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -16,9 +20,6 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          lfs: true
 
       - uses: actions/cache@v3
         with:
@@ -41,26 +42,22 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: "IMU Mocap Viewer - ${{ matrix.targetPlatform }}"
+          name: ${{ matrix.targetPlatform }}
           path: |
             build/${{ matrix.targetPlatform }}
             !build/${{ matrix.targetPlatform }}/*DoNotShip
 
-  buildWindowsInstaller:
-    name: Build Windows installer
+  windows-installer:
     runs-on: windows-latest
-    needs: buildDesktopPlatforms
+    needs: build
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          lfs: true
 
       - name: Download from artifacts
         uses: actions/download-artifact@v4
         with:
-          name: "IMU Mocap Viewer - StandaloneWindows64"
+          name: "StandaloneWindows64"
           path: files
 
       - name: Create installer
@@ -69,5 +66,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: "Windows installer"
-          path: "Output/*.exe"
+          name: IMU-Mocap-Viewer-Setup.exe
+          path: Output/IMU-Mocap-Viewer-Setup.exe
