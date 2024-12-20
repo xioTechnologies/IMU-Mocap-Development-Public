@@ -46,6 +46,7 @@ jobs:
   buildWindowsInstaller:
     name: Build Windows installer
     runs-on: windows-latest
+    needs: buildDesktopPlatforms
 
     steps:
       - uses: actions/checkout@v4
