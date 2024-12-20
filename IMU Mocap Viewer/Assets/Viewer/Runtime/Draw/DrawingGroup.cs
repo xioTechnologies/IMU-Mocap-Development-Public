@@ -23,9 +23,9 @@ namespace Viewer.Runtime.Draw
             if (Runtime == this) Clear();
         }
 
-        public void PopulateCommands(CommandBuffer buffer) => Runtime.PopulateRuntimeCommands(buffer);
+        public void PopulateCommands(RasterCommandBuffer buffer) => Runtime.PopulateRuntimeCommands(buffer);
 
-        private void PopulateRuntimeCommands(CommandBuffer buffer)
+        private void PopulateRuntimeCommands(RasterCommandBuffer buffer)
         {
             if (Utils.ConsumeFlag(ref needsSort)) sources.Sort((a, b) => a.Order.CompareTo(b.Order));
 

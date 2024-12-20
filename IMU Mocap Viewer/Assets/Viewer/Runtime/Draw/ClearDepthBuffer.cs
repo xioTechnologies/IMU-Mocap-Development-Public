@@ -7,8 +7,8 @@ namespace Viewer.Runtime.Draw
     {
         public int Order { get; set; } = 0;
 
-        public void PopulateCommands(CommandBuffer buffer) => buffer.ClearRenderTarget(true, false, Color.clear);
+        public void PopulateCommands(RasterCommandBuffer buffer) => buffer.ClearRenderTarget(true, false, Color.clear);
 
-        public static void AddCommands(CommandBuffer buffer) => buffer.ClearRenderTarget(true, false, Color.clear);
+        public static void AddCommands(RasterCommandBuffer buffer) => buffer.ClearRenderTarget(true, false, Color.clear);
     }
 }

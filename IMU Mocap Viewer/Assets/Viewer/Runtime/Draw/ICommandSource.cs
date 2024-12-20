@@ -6,6 +6,6 @@ namespace Viewer.Runtime.Draw
     {
         int Order { get; }
 
-        void PopulateCommands(CommandBuffer buffer);
+        void PopulateCommands(RasterCommandBuffer buffer);
     }
 }

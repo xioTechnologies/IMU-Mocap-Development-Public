@@ -126,7 +126,7 @@ namespace Viewer.Runtime.Draw
             propertyBlock.SetBuffer(InstancesProperty, instanceBuffer);
         }
     
-        public void PopulateCommands(CommandBuffer buffer)
+        public void PopulateCommands(RasterCommandBuffer buffer)
         {
             if (activeCount <= 0) return;
 
