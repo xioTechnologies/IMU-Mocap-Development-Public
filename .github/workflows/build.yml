@@ -54,10 +54,10 @@ jobs:
           lfs: true
 
       - name: Download from artifacts
-          uses: actions/download-artifact@v4
-          with:
-            name: "IMU Mocap Viewer - StandaloneWindows64"
-            path: files
+        uses: actions/download-artifact@v4
+        with:
+          name: "IMU Mocap Viewer - StandaloneWindows64"
+          path: files
 
       - name: Create installer
         run: |
