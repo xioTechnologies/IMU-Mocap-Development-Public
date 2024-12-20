@@ -35,9 +35,10 @@ jobs:
           projectPath: "./IMU Mocap Viewer"
           targetPlatform: ${{ matrix.targetPlatform }}
           allowDirtyBuild: true
-          buildsPath: build
+          buildsPath: "build/${{ matrix.targetPlatform }}"
+          buildName: 'IMU Mocap Viewer'
 
       - uses: actions/upload-artifact@v3
         with:
-          name: "IMU Mocap Viewer-${{ matrix.targetPlatform }}"
-          path: build/${{ matrix.targetPlatform }}
+          name: "IMU Mocap Viewer - ${{ matrix.targetPlatform }}"
+          path: "build/${{ matrix.targetPlatform }}/IMU Mocap Viewer"
