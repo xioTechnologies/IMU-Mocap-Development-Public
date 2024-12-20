@@ -9,14 +9,14 @@ on:
 
 jobs:
   imu-mocap-viewer:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.target[0] }}
     strategy:
       fail-fast: false
       matrix:
-        target: # [ name, platform ]
-          - [ macOS, StandaloneOSX ]
-          - [ Windows, StandaloneWindows64 ]
-          - [ ubuntu, StandaloneLinux64 ]
+        target: # [ os, name, platform  ]
+          - [ macos-latest, macOS, StandaloneOSX ]
+          - [ windows-latest, Windows, StandaloneWindows64 ]
+          - [ ubuntu-latest, ubuntu, StandaloneLinux64 ]
     
     steps:
       - uses: actions/checkout@v4
@@ -24,7 +24,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "IMU Mocap Viewer/Library"
-          key: Library-${{ matrix.target[1] }}
+          key: Library-${{ matrix.target[2] }}
           restore-keys: Library-
 
       - uses: game-ci/unity-builder@v4
@@ -34,7 +34,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           projectPath: "./IMU Mocap Viewer"
-          targetPlatform: ${{ matrix.target[1] }}
+          targetPlatform: ${{ matrix.target[2] }}
           allowDirtyBuild: true
           buildsPath: "build/"
           buildName: 'IMU Mocap Viewer'
@@ -43,10 +43,10 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: IMU-Mocap-Viewer-${{ matrix.target[0] }}
+          name: IMU-Mocap-Viewer-${{ matrix.target[1] }}
           path: |
-            build/${{ matrix.target[1] }}
-            !build/${{ matrix.target[1] }}/*DoNotShip
+            build/${{ matrix.target[2] }}
+            !build/${{ matrix.target[2] }}/*DoNotShip
 
   macos-dmg:
     runs-on: macos-latest
