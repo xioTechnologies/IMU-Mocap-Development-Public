@@ -24,7 +24,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "IMU Mocap Viewer/Library"
-          key: Library-${{ matrix.target[2] }}
+          key: Library-${{ matrix.target[0] }}
           restore-keys: Library-
 
       - uses: game-ci/unity-builder@v4
