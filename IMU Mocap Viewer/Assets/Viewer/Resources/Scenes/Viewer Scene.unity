@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 10
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -42,8 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
-  m_GIWorkflowMode: 1
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -66,9 +66,6 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
-    m_FinalGather: 0
-    m_FinalGatherFiltering: 1
-    m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
     m_BakeBackend: 1
@@ -376,7 +373,7 @@ PrefabInstance:
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 312.5
+      value: 192
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce,
         type: 3}
@@ -728,7 +725,7 @@ PrefabInstance:
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 384.5
+      value: 264
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce,
         type: 3}
@@ -788,7 +785,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2013068859009097967, guid: 7de72cf32291ab94f94248c9ca529083,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 1168913369}
     - target: {fileID: 4886090464880779281, guid: 7de72cf32291ab94f94248c9ca529083,
@@ -843,7 +840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5485803776923042176, guid: 7de72cf32291ab94f94248c9ca529083,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 794248276}
     - target: {fileID: 6099231209983652620, guid: 7de72cf32291ab94f94248c9ca529083,
@@ -1065,9 +1062,8 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   m_Enabled: 1
-  serializedVersion: 10
+  serializedVersion: 11
   m_Type: 1
-  m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 2
   m_Range: 10
@@ -1117,8 +1113,12 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
 --- !u!4 &410087041
 Transform:
   m_ObjectHideFlags: 0
@@ -1427,7 +1427,7 @@ PrefabInstance:
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 528.5
+      value: 408
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce,
         type: 3}
@@ -1618,6 +1618,7 @@ Material:
     - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
     - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &843806520 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1518845245509970256, guid: 65632b2fecc5533409164bfd84172441,
@@ -1843,7 +1844,7 @@ PrefabInstance:
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 600.5
+      value: 480
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce,
         type: 3}
@@ -2005,6 +2006,7 @@ Material:
     - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
     - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1181713536
 GameObject:
   m_ObjectHideFlags: 0
@@ -2361,7 +2363,7 @@ PrefabInstance:
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 456.5
+      value: 336
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce,
         type: 3}
@@ -2474,6 +2476,7 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
 --- !u!114 &1267595704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2564,8 +2567,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Sample Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 5a61883a01f053448b6c49e2975c3b40, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 78555a9306f90674db0f57d358579012, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 89c78a58b9905de4fa818ab0d3d4ea80, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2605,15 +2608,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 0
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 0
   m_isOrthographic: 0
   m_isCullingEnabled: 0
@@ -2631,7 +2636,7 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_renderer: {fileID: 1273793963}
   m_maskType: 0
 --- !u!23 &1273793963
@@ -2651,6 +2656,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2703,6 +2711,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &1428783193
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Plot_Stretchable
+  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _PixelScaleFactor: 0.001990863
+    - _Thickness: 4
+    m_Colors:
+    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
+    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &1482916933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2985,6 +3029,42 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!21 &1795619776
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Plot_Stretchable
+  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _PixelScaleFactor: 0.001990863
+    - _Thickness: 5
+    m_Colors:
+    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
+    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &1876876151 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2710912164911782329, guid: df6ad33182409d944b92a6995d0853ce,
@@ -3052,8 +3132,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 492.5, y: -0}
-  m_SizeDelta: {x: 985, y: 0}
+  m_AnchoredPosition: {x: 372, y: -0}
+  m_SizeDelta: {x: 744, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1967537429
 CanvasRenderer:
@@ -3365,7 +3445,7 @@ PrefabInstance:
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 672.5
+      value: 552
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce,
         type: 3}
@@ -3771,12 +3851,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7677284654283204438, guid: c2f52b249d313144cb60c7f334336294,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 44568caea62a8f64fa692db2370f4ed8, type: 2}
     - target: {fileID: 7677284654283204438, guid: c2f52b249d313144cb60c7f334336294,
         type: 3}
-      propertyPath: m_Materials.Array.data[1]
+      propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 43bb72c199c6d414c898c9e37cefbfe1, type: 2}
     m_RemovedComponents: []
