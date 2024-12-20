@@ -42,7 +42,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: "IMU Mocap Viewer - ${{ matrix.targetPlatform }}"
-          path: "build/${{ matrix.targetPlatform }}"
+          path: |
+            build/${{ matrix.targetPlatform }}
+            !build/${{ matrix.targetPlatform }}/*DoNotShip
 
   buildWindowsInstaller:
     name: Build Windows installer

@@ -11,7 +11,7 @@ UninstallDisplayIcon={app}\IMU Mocap Viewer.exe
 WizardStyle=modern
 
 [Files]
-Source: "files/*"; Excludes: "*DoNotShip\*"; destdir: "{app}"; Flags: ignoreversion recursesubdirs
+Source: "files/*"; destdir: "{app}"; Flags: ignoreversion recursesubdirs
 
 [Icons]
 Name: "{autodesktop}\IMU Mocap Viewer"; Filename: "{app}\IMU Mocap Viewer.exe"
