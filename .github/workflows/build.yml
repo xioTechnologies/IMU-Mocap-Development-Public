@@ -15,7 +15,7 @@ jobs:
       matrix:
         target: # [ name, platform ]
           - [ macOS, StandaloneOSX ]
-          - [ windows, StandaloneWindows64 ]
+          - [ Windows, StandaloneWindows64 ]
           - [ ubuntu, StandaloneLinux64 ]
     
     steps:
@@ -48,6 +48,38 @@ jobs:
             build/${{ matrix.target[1] }}
             !build/${{ matrix.target[1] }}/*DoNotShip
 
+  macos-dmg:
+    runs-on: macos-latest
+    needs: imu-mocap-viewer
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download from artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: IMU-Mocap-Viewer-macOS
+
+      - name: Create DMG
+        run: |
+          brew install create-dmg
+          create-dmg \
+          --volname "IMU-Mocap-Viewer" \
+          --background "installer_background.png" \
+          --window-pos 200 120 \
+          --window-size 600 320 \
+          --icon-size 100 \
+          --icon "IMU Mocap Viewer.app" 140 130 \
+          --hide-extension "IMU Mocap Viewer.app" \
+          --app-drop-link 450 125 \
+          "IMU-Mocap-Viewer.dmg" \
+          "IMU Mocap Viewer.app"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: IMU-Mocap-Viewer.dmg
+          path: IMU-Mocap-Viewer.dmg
+
   windows-installer:
     runs-on: windows-latest
     needs: imu-mocap-viewer
@@ -58,7 +90,7 @@ jobs:
       - name: Download from artifacts
         uses: actions/download-artifact@v4
         with:
-          name: "StandaloneWindows64"
+          name: IMU-Mocap-Viewer-Windows
           path: files
 
       - name: Create installer
