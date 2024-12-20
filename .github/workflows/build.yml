@@ -47,23 +47,23 @@ jobs:
     name: Build Windows installer
     runs-on: windows-latest
 
-  steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        lfs: true
-
-    - name: Download from artifacts
-        uses: actions/download-artifact@v4
+    steps:
+      - uses: actions/checkout@v4
         with:
-          name: "IMU Mocap Viewer - StandaloneWindows64"
-          path: files
+          fetch-depth: 0
+          lfs: true
 
-    - name: Create installer
-      run: |
-        & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" WindowsInstaller.iss        
+      - name: Download from artifacts
+          uses: actions/download-artifact@v4
+          with:
+            name: "IMU Mocap Viewer - StandaloneWindows64"
+            path: files
 
-    - uses: actions/upload-artifact@v4
-      with:
-        name: "Windows installer"
-        path: "Output/*.exe"
+      - name: Create installer
+        run: |
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" WindowsInstaller.iss        
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "Windows installer"
+          path: "Output/*.exe"
