@@ -38,7 +38,8 @@ jobs:
           allowDirtyBuild: true
           buildsPath: "build/"
           buildName: 'IMU Mocap Viewer'
-          versioning: Semantic
+          versioning: Custom
+          version: '0.0.0'
 
       - uses: actions/upload-artifact@v4
         with:
