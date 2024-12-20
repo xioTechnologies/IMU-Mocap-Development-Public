@@ -7,41 +7,66 @@ namespace Viewer.Runtime.UI
     public sealed class CanvasScaleModeSelector : MonoBehaviour
     {
         [SerializeField] private float mininmumWidthInPixels = 500f;
+        [SerializeField] private float maximumHeightInPixels = 1080f;
 
         private CanvasScaler canvasScaler;
-
-        private bool isScalingEnabled = false;
-
+        
+        enum ScaleMode
+        {
+            None, 
+            TooSmallWidth,
+            ConstantPixelSize,
+            ToLargeHeight
+        }
+        
+        private ScaleMode mode = ScaleMode.None;
+        
         private void Awake()
         {
             canvasScaler = GetComponent<CanvasScaler>();
-
-            CheckAndUpdateScaleMode(true);
+            
+            mode = ScaleMode.None;
+            
+            CheckAndUpdateScaleMode();
         }
 
-        private void Update() => CheckAndUpdateScaleMode(false);
+        private void Update() => CheckAndUpdateScaleMode();
 
-        private void CheckAndUpdateScaleMode(bool apply)
+        private void CheckAndUpdateScaleMode()
         {
             float currentScreenWidth = Screen.width;
+            float currentScreenHeight = Screen.height;
 
             if (currentScreenWidth < mininmumWidthInPixels)
             {
-                if (apply == false && isScalingEnabled) return;
+                if (mode == ScaleMode.TooSmallWidth) return;
 
                 canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                canvasScaler.referenceResolution = new Vector2(mininmumWidthInPixels, canvasScaler.referenceResolution.y);
+                canvasScaler.referenceResolution = new Vector2(mininmumWidthInPixels, maximumHeightInPixels);
                 canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
                 canvasScaler.matchWidthOrHeight = 0f;
-                isScalingEnabled = true;
+                mode = ScaleMode.TooSmallWidth;
 
                 return;
             }
 
-            if ((apply == false && isScalingEnabled == false)) return;
+            if (currentScreenHeight > maximumHeightInPixels) 
+            { 
+                if (mode == ScaleMode.ToLargeHeight) return;
+                
+                canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+                canvasScaler.referenceResolution = new Vector2(mininmumWidthInPixels, maximumHeightInPixels);
+                canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+                canvasScaler.matchWidthOrHeight = 1f;
+                mode = ScaleMode.ToLargeHeight;
+
+                return;
+            }
+
+            if (mode == ScaleMode.ConstantPixelSize) return;
 
             canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
-            isScalingEnabled = false;
+            mode = ScaleMode.ConstantPixelSize;
         }
     }
 }
