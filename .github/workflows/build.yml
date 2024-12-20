@@ -38,19 +38,32 @@ jobs:
           buildsPath: "build/"
           buildName: 'IMU Mocap Viewer'
 
-      - if: ${{ matrix.targetPlatform }} == 'StandaloneWindows64'
-        name: Create installer
-        run: |
-          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" WindowsInstaller.iss
-
-      - if: ${{ matrix.targetPlatform }} == 'StandaloneWindows64'
-        uses: actions/upload-artifact@v4
-        with:
-          name: "IMU Mocap Viewer - ${{ matrix.targetPlatform }}"
-          path: "Output/*.exe"
-
-      - if: ${{ matrix.targetPlatform }} != 'StandaloneWindows64'
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: "IMU Mocap Viewer - ${{ matrix.targetPlatform }}"
           path: "build/${{ matrix.targetPlatform }}"
+
+  buildWindowsInstaller:
+    name: Build Windows installer
+    runs-on: windows-latest
+
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        lfs: true
+
+    - name: Download from artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: "IMU Mocap Viewer - StandaloneWindows64"
+          path: files
+
+    - name: Create installer
+      run: |
+        & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" WindowsInstaller.iss        
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: "Windows installer"
+        path: "Output/*.exe"
