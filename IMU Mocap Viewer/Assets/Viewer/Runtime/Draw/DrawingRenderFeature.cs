@@ -10,7 +10,7 @@ namespace Viewer.Runtime.Draw
     {
         class PassData
         {
-            public List<DrawingGroup> groups;
+            public List<DrawingGroup> Groups;
         }
 
         class Pass : ScriptableRenderPass
@@ -19,7 +19,11 @@ namespace Viewer.Runtime.Draw
 
             public Pass(DrawingRenderFeature feature) => this.feature = feature;
 
+            // We have to include this because, in classic Unity style the made the old API obsolete before finishing the new one
+            // When the Render Graph API is ready for the big time, enable in project settings and delete the is method 
+#pragma warning disable CS0672 // Member overrides obsolete member
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData) 
+#pragma warning restore CS0672 // Member overrides obsolete member
             { 
                 CommandBuffer commandBuffer = CommandBufferPool.Get(feature.passName);
 
@@ -36,7 +40,7 @@ namespace Viewer.Runtime.Draw
             {
                 using var builder = renderGraph.AddRenderPass<PassData>(feature.passName, out var passData);
                 
-                passData.groups = feature.groups;
+                passData.Groups = feature.groups;
                 
                 builder.UseColorBuffer(renderGraph.ImportBackbuffer(0), 0);
                 
@@ -50,7 +54,7 @@ namespace Viewer.Runtime.Draw
 
             ClearDepthBuffer.AddCommands(commandBuffer);
 
-            foreach (var group in data.groups) group.PopulateCommands(commandBuffer);
+            foreach (var group in data.Groups) group.PopulateCommands(commandBuffer);
         }
         
         [SerializeField] private RenderPassEvent renderPassEvent = RenderPassEvent.BeforeRenderingOpaques;
