@@ -1,8 +1,10 @@
+from typing import Dict, List, Tuple, Union
+
 import matplotlib.pyplot as plt
 import numpy as np
-from .matrix import Matrix
 from matplotlib import animation
-from typing import Dict, List, Tuple, Union
+
+from .matrix import Matrix
 
 
 class Link:

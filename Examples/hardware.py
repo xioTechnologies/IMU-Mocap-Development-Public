@@ -1,9 +1,10 @@
-import colorama
 import json
+from typing import List
+
+import colorama
 import numpy as np
 import ximu3
 from imumocap import Matrix
-from typing import List
 
 
 class Imu:

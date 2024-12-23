@@ -1,9 +1,10 @@
+import time
+
+import imumocap.solvers
 import models
 import numpy as np
-import time
 import scipy
 import ximu3csv
-import imumocap.solvers
 from imumocap import Matrix
 
 # Import IMU data
@@ -40,7 +41,7 @@ for index, _ in enumerate(timestamps):
 model.root.plot(frames)
 
 # Stream to UI
-connection = imumocap.ui.Connection()
+connection = imumocap.viewer.Connection()
 
 while True:
     for frame in frames:
@@ -49,4 +50,4 @@ while True:
         for name, joint in frame.items():
             model.root.dictionary()[name].joint = joint
 
-        connection.send(imumocap.ui.link_to_primitives(model.root))
+        connection.send(imumocap.viewer.link_to_primitives(model.root))

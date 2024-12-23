@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+
 from imumocap import Link, Matrix
 
 # Head

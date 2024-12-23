@@ -1,4 +1,5 @@
 import numpy as np
+
 from ..link import Link
 from ..matrix import Matrix
 

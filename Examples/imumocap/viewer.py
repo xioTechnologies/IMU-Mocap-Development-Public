@@ -1,9 +1,11 @@
-import numpy as np
 import socket
 from abc import ABC
+from typing import List
+
+import numpy as np
+
 from .link import Link
 from .matrix import Matrix
-from typing import List
 
 
 class Primitive(ABC):

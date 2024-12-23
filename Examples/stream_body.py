@@ -1,7 +1,8 @@
+import time
+
 import hardware
 import imumocap.solvers
 import models
-import time
 
 # Load example model
 model = models.Body()
@@ -23,7 +24,7 @@ ignored = [
 imus = hardware.setup([l.name for l in model.root.flatten() if l.name not in ignored])
 
 # Stream to UI
-connection = imumocap.ui.Connection()
+connection = imumocap.viewer.Connection()
 
 
 def calibrate():
@@ -59,4 +60,4 @@ while True:
 
     imumocap.solvers.floor(model.root)
 
-    connection.send(imumocap.ui.link_to_primitives(model.root))
+    connection.send(imumocap.viewer.link_to_primitives(model.root))

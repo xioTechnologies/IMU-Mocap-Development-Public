@@ -1,7 +1,8 @@
+import time
+
 import imumocap
 import models
 import numpy as np
-import time
 from imumocap import Matrix
 
 # Load example model
@@ -37,7 +38,7 @@ for angle in [np.sin(x) for x in np.linspace(0, np.pi, 100)]:
 model.root.plot(frames)
 
 # Stream to UI
-connection = imumocap.ui.Connection()
+connection = imumocap.viewer.Connection()
 
 while True:
     for frame in frames:
@@ -46,4 +47,4 @@ while True:
         for name, joint in frame.items():
             model.root.dictionary()[name].joint = joint
 
-        connection.send(imumocap.ui.link_to_primitives(model.root))
+        connection.send(imumocap.viewer.link_to_primitives(model.root))
