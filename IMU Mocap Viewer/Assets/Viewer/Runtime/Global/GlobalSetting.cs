@@ -7,11 +7,11 @@ namespace Viewer.Runtime.Global
     public sealed class GlobalSetting : ScriptableObject
     {
         [SerializeField] private string id = Guid.NewGuid().ToString();
-    
-        private GlobalSetting runtime; 
+
+        private GlobalSetting runtime;
         private GlobalSetting Runtime => runtime ??= KeyedSingleton<GlobalSetting>.ResolveInstance(id, this);
 
-        private void OnEnable() 
+        private void OnEnable()
         {
             if (Runtime == this) Value = value;
         }

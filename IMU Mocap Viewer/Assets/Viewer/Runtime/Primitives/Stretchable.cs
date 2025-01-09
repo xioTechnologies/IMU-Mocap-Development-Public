@@ -81,13 +81,13 @@ namespace Viewer.Runtime.Primitives
             {
                 Initialize();
             }
-        
+
             materialInstance.SetFloat(PixelScaleFactorProperty, PixelScaleUtility.PixelScaleFactor);
-        
+
             if (!isDirty) return;
-        
+
             UpdateMaterialProperties();
-        
+
             isDirty = false;
         }
 
@@ -124,7 +124,7 @@ namespace Viewer.Runtime.Primitives
             {
                 return;
             }
-        
+
             if (materialInstance != null)
             {
                 if (Application.isPlaying) Destroy(materialInstance);
@@ -143,7 +143,7 @@ namespace Viewer.Runtime.Primitives
             materialInstance.SetColor(NearColorProperty, nearColor);
             materialInstance.SetColor(FarColorProperty, farColor);
         }
-    
+
         protected virtual void UpdateTransform() { }
 
         protected void SetDirty() => isDirty = true;

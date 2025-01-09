@@ -36,7 +36,7 @@ namespace Viewer.Runtime.Draw
                 set => Transform.m33 = value;
             }
         }
-    
+
         public int Order { get; set; } = 0;
 
         public StretchableDrawBatch(int max, Mesh mesh, Material material)
@@ -84,7 +84,7 @@ namespace Viewer.Runtime.Draw
             var distance = Vector3.Distance(start, end);
 
             if (distance <= 0.00001f) return;
-        
+
             var direction = (end - start).normalized;
             var center = (start + end) / 2f;
             var rotation = Quaternion.LookRotation(direction);
@@ -97,7 +97,7 @@ namespace Viewer.Runtime.Draw
         {
             AppendInstance(position, rotation, Vector3.one * scale, thickness, nearColor, farColor);
         }
-    
+
         public void Dispose() => instanceBuffer?.Dispose();
 
         public void Draw()
@@ -105,7 +105,7 @@ namespace Viewer.Runtime.Draw
             if (activeCount <= 0) return;
 
             if (Utils.ConsumeFlag(ref isDirty)) Flush();
-        
+
             material.SetPass(0);
             Graphics.DrawMeshInstancedProcedural(
                 mesh,
@@ -120,12 +120,12 @@ namespace Viewer.Runtime.Draw
         private void Flush()
         {
             if (activeCount <= 0) return;
-        
+
             instanceBuffer.SetData(instances, 0, 0, activeCount);
             propertyBlock.SetFloat(PixelScaleFactor, PixelScaleUtility.PixelScaleFactor);
             propertyBlock.SetBuffer(InstancesProperty, instanceBuffer);
         }
-    
+
         public void PopulateCommands(RasterCommandBuffer buffer)
         {
             if (activeCount <= 0) return;

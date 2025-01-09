@@ -22,18 +22,18 @@ namespace Viewer.Runtime.Draw
             public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
             {
                 using var builder = renderGraph.AddRasterRenderPass<PassData>(feature.passName, out var passData);
-                
+
                 passData.Groups = feature.groups;
-             
+
                 var universalResourceData = frameData.Get<UniversalResourceData>();
-                
+
                 builder.SetRenderAttachment(universalResourceData.activeColorTexture, 0);
                 builder.SetRenderAttachmentDepth(universalResourceData.activeDepthTexture);
                 builder.AllowPassCulling(false);
                 builder.SetRenderFunc((PassData data, RasterGraphContext context) =>
                 {
                     RasterCommandBuffer cmd = context.cmd;
-                    
+
                     ClearDepthBuffer.AddCommands(cmd);
 
                     foreach (var group in data.Groups)

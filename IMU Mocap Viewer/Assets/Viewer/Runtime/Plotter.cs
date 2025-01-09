@@ -5,7 +5,8 @@ namespace Viewer.Runtime
 {
     public sealed class Plotter : MonoBehaviour
     {
-        [Header("Primitives")] [SerializeField, Range(0f, 10f)] private float primitiveScale = 3f;
+        [Header("Primitives")] [SerializeField, Range(0f, 10f)]
+        private float primitiveScale = 3f;
 
         [Header("Line")] [SerializeField] private LinePlotter line;
         [SerializeField, Range(0f, 10f)] private float lineWidthInPixels = 1f;

@@ -6,7 +6,7 @@ namespace Viewer.Runtime
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void CalculateForCamera() => CalculateForCamera(Camera.main);
-        
+
 
         public static void CalculateForCamera(Camera camera)
         {

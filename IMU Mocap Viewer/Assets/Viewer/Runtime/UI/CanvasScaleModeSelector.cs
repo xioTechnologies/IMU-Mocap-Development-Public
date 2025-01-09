@@ -7,25 +7,26 @@ namespace Viewer.Runtime.UI
     [RequireComponent(typeof(CanvasScaler))]
     public sealed class CanvasScaleModeSelector : MonoBehaviour
     {
-        [FormerlySerializedAs("mininmumWidthInPixels"),SerializeField] private float minimumWidthInPixels = 500f;
+        [FormerlySerializedAs("mininmumWidthInPixels"), SerializeField]
+        private float minimumWidthInPixels = 500f;
 
         private CanvasScaler canvasScaler;
-        
+
         enum ScaleMode
         {
-            None, 
+            None,
             TooSmallWidth,
             ConstantPixelSize
         }
-        
+
         private ScaleMode mode = ScaleMode.None;
-        
+
         private void Awake()
         {
             canvasScaler = GetComponent<CanvasScaler>();
-            
+
             mode = ScaleMode.None;
-            
+
             CheckAndUpdateScaleMode();
         }
 
@@ -34,9 +35,9 @@ namespace Viewer.Runtime.UI
         private void CheckAndUpdateScaleMode()
         {
             canvasScaler.scaleFactor = PixelScaleUtility.DpiScaleFactor;
-            
+
             float currentScreenWidth = Screen.width;
-            
+
             if (currentScreenWidth < minimumWidthInPixels * PixelScaleUtility.DpiScaleFactor)
             {
                 if (mode == ScaleMode.TooSmallWidth) return;

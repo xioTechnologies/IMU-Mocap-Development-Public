@@ -16,8 +16,8 @@ namespace Viewer.Runtime.Global
 
             OnValueChanged(setting.Value);
         }
-    
-        private void OnValueChanged(bool obj) => ActionQueue.Enqueue(this, obj); 
+
+        private void OnValueChanged(bool obj) => ActionQueue.Enqueue(this, obj);
 
         private void OnDestroy() => setting.OnValueChanged -= OnValueChanged;
     }

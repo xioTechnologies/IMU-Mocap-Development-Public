@@ -9,7 +9,7 @@ namespace Viewer.Runtime.Draw
     [CreateAssetMenu(menuName = "IMU Viewer/Drawing Group", fileName = "Drawing Group", order = -1000)]
     public sealed class DrawingGroup : ScriptableObject
     {
-        private DrawingGroup runtime; 
+        private DrawingGroup runtime;
         private DrawingGroup Runtime => runtime ??= KeyedSingleton<DrawingGroup>.ResolveInstance(id, this);
 
         [SerializeField] private string id = Guid.NewGuid().ToString();
@@ -46,4 +46,3 @@ namespace Viewer.Runtime.Draw
         public void UnregisterSource(ICommandSource source) => Runtime.sources.Remove(source);
     }
 }
-

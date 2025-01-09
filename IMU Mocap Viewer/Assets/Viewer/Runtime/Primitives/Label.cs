@@ -36,10 +36,10 @@ namespace Viewer.Runtime.Primitives
         {
             float worldSize = PixelScaleUtility.GetWorldSizeFromPixels(Scale * 10f, rectTransform.position);
             float worldMargin = PixelScaleUtility.GetWorldSizeFromPixels(Margin * 10f, rectTransform.position);
-        
+
             text.fontSize = worldSize;
             text.margin = new Vector4(worldMargin, 0, 0, 0);
-        
+
             rectTransform.localScale = Vector3.one;
             rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
         }
