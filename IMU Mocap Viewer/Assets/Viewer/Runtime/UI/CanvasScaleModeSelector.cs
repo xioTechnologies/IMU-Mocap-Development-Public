@@ -8,6 +8,7 @@ namespace Viewer.Runtime.UI
     {
         [SerializeField] private float mininmumWidthInPixels = 500f;
         [SerializeField] private float maximumHeightInPixels = 1080f;
+        // [SerializeField, Range(1f, 2f)] private float scaleOverride = 1f;
 
         private CanvasScaler canvasScaler;
         
@@ -15,8 +16,7 @@ namespace Viewer.Runtime.UI
         {
             None, 
             TooSmallWidth,
-            ConstantPixelSize,
-            ToLargeHeight
+            ConstantPixelSize
         }
         
         private ScaleMode mode = ScaleMode.None;
@@ -34,10 +34,13 @@ namespace Viewer.Runtime.UI
 
         private void CheckAndUpdateScaleMode()
         {
+            float scale = Screen.dpi / 96f; 
+            
+            canvasScaler.scaleFactor = scale;
+            
             float currentScreenWidth = Screen.width;
-            float currentScreenHeight = Screen.height;
-
-            if (currentScreenWidth < mininmumWidthInPixels)
+            
+            if (currentScreenWidth < mininmumWidthInPixels * scale)
             {
                 if (mode == ScaleMode.TooSmallWidth) return;
 
@@ -46,19 +49,6 @@ namespace Viewer.Runtime.UI
                 canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
                 canvasScaler.matchWidthOrHeight = 0f;
                 mode = ScaleMode.TooSmallWidth;
-
-                return;
-            }
-
-            if (currentScreenHeight > maximumHeightInPixels) 
-            { 
-                if (mode == ScaleMode.ToLargeHeight) return;
-                
-                canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                canvasScaler.referenceResolution = new Vector2(mininmumWidthInPixels, maximumHeightInPixels);
-                canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-                canvasScaler.matchWidthOrHeight = 1f;
-                mode = ScaleMode.ToLargeHeight;
 
                 return;
             }
