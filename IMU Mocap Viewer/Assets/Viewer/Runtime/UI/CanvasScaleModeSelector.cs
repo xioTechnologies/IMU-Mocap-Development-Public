@@ -42,7 +42,7 @@ namespace Viewer.Runtime.UI
                 if (mode == ScaleMode.TooSmallWidth) return;
 
                 canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                canvasScaler.referenceResolution = new Vector2(minimumWidthInPixels, maximumHeightInPixels);
+                canvasScaler.referenceResolution = new Vector2(minimumWidthInPixels, canvasScaler.referenceResolution.y);
                 canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
                 canvasScaler.matchWidthOrHeight = 0f;
                 mode = ScaleMode.TooSmallWidth;
