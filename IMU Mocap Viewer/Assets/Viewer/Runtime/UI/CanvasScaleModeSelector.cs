@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Viewer.Runtime.UI
@@ -6,9 +7,7 @@ namespace Viewer.Runtime.UI
     [RequireComponent(typeof(CanvasScaler))]
     public sealed class CanvasScaleModeSelector : MonoBehaviour
     {
-        [SerializeField] private float mininmumWidthInPixels = 500f;
-        [SerializeField] private float maximumHeightInPixels = 1080f;
-        // [SerializeField, Range(1f, 2f)] private float scaleOverride = 1f;
+        [FormerlySerializedAs("mininmumWidthInPixels"),SerializeField] private float minimumWidthInPixels = 500f;
 
         private CanvasScaler canvasScaler;
         
@@ -38,12 +37,12 @@ namespace Viewer.Runtime.UI
             
             float currentScreenWidth = Screen.width;
             
-            if (currentScreenWidth < mininmumWidthInPixels * PixelScaleUtility.DpiScaleFactor)
+            if (currentScreenWidth < minimumWidthInPixels * PixelScaleUtility.DpiScaleFactor)
             {
                 if (mode == ScaleMode.TooSmallWidth) return;
 
                 canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                canvasScaler.referenceResolution = new Vector2(mininmumWidthInPixels, maximumHeightInPixels);
+                canvasScaler.referenceResolution = new Vector2(minimumWidthInPixels, maximumHeightInPixels);
                 canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
                 canvasScaler.matchWidthOrHeight = 0f;
                 mode = ScaleMode.TooSmallWidth;
