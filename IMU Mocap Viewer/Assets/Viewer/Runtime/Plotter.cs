@@ -5,8 +5,7 @@ namespace Viewer.Runtime
 {
     public sealed class Plotter : MonoBehaviour
     {
-        [Header("Primitives")] [SerializeField, Range(0f, 10f)]
-        private float primitiveScale = 3f;
+        [Header("Primitives")] [SerializeField, Range(0f, 10f)] private float primitiveScale = 3f;
 
         [Header("Line")] [SerializeField] private LinePlotter line;
         [SerializeField, Range(0f, 10f)] private float lineWidthInPixels = 1f;
@@ -29,11 +28,7 @@ namespace Viewer.Runtime
 
         public Bounds Bounds => hasBounds ? bounds : new Bounds();
 
-        public float PrimitiveScale
-        {
-            get => primitiveScale;
-            set => primitiveScale = value;
-        }
+        private float DpiScaleFactor => primitiveScale * PixelScaleUtility.DpiScaleFactor;
 
         public bool IsEmpty => hasBounds == false;
 
@@ -61,35 +56,35 @@ namespace Viewer.Runtime
             Encapsulate(start);
             Encapsulate(end);
 
-            line.Plot(start, end, PrimitiveScale * lineWidthInPixels);
+            line.Plot(start, end, DpiScaleFactor * lineWidthInPixels);
         }
 
         public void Circle(Vector3 xyz, Vector3 axis, float radius)
         {
             Encapsulate(xyz);
 
-            circle.Plot(xyz, axis, radius, PrimitiveScale * lineWidthInPixels * circleLineWidthScaleFactor);
+            circle.Plot(xyz, axis, radius, DpiScaleFactor * lineWidthInPixels * circleLineWidthScaleFactor);
         }
 
         public void Dot(Vector3 xyz, float size)
         {
             Encapsulate(xyz);
 
-            dot.Plot(xyz, size * PrimitiveScale * dotSizeInPixels);
+            dot.Plot(xyz, size * DpiScaleFactor * dotSizeInPixels);
         }
 
         public void Axes(Vector3 xyz, Quaternion quaternion, float scale)
         {
             Encapsulate(xyz);
 
-            axes.Plot(xyz, quaternion, scale, PrimitiveScale * axesLineWidthInPixels);
+            axes.Plot(xyz, quaternion, scale, DpiScaleFactor * axesLineWidthInPixels);
         }
 
         public void Label(Vector3 xyz, string text)
         {
             Encapsulate(xyz);
 
-            labels.Plot(xyz, PrimitiveScale * labelSizeInPoints, text);
+            labels.Plot(xyz, DpiScaleFactor * labelSizeInPoints, text);
         }
     }
 }

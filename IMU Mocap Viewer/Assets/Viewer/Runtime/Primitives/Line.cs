@@ -15,7 +15,7 @@ namespace Viewer.Runtime.Primitives
             Vector3 direction = endPoint - startPoint;
             float length = direction.magnitude;
 
-            if (length < Mathf.Epsilon)
+            if (length <= 0.00001f)
             {
                 transform.localScale = Vector3.zero;
                 return;

@@ -83,7 +83,7 @@ namespace Viewer.Runtime.Draw
 
             var distance = Vector3.Distance(start, end);
 
-            if (distance <= 0f) return;
+            if (distance <= 0.00001f) return;
         
             var direction = (end - start).normalized;
             var center = (start + end) / 2f;
