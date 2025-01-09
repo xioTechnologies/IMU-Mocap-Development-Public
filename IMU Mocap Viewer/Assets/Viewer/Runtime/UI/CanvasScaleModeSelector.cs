@@ -34,13 +34,11 @@ namespace Viewer.Runtime.UI
 
         private void CheckAndUpdateScaleMode()
         {
-            float scale = Screen.dpi / 96f; 
-            
-            canvasScaler.scaleFactor = scale;
+            canvasScaler.scaleFactor = PixelScaleUtility.DpiScaleFactor;
             
             float currentScreenWidth = Screen.width;
             
-            if (currentScreenWidth < mininmumWidthInPixels * scale)
+            if (currentScreenWidth < mininmumWidthInPixels * PixelScaleUtility.DpiScaleFactor)
             {
                 if (mode == ScaleMode.TooSmallWidth) return;
 

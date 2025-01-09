@@ -96,12 +96,10 @@ namespace Viewer.Runtime.Widgets
 
             if (CrossesPlane(line.min._x0z(), line.minFadeEnd._x0z(), split, normal))
             {
-                Vector3 intersection = GetIntersectionAndColor3(line.min,
-                    line.minFadeEnd,
-                    darkColor,
-                    color,
-                    split,
-                    normal,
+                Vector3 intersection = GetIntersectionAndColor(
+                    line.min, line.minFadeEnd,
+                    darkColor, color,
+                    split, normal,
                     out var intersectionColor
                 );
                 
@@ -126,12 +124,10 @@ namespace Viewer.Runtime.Widgets
 
             if (CrossesPlane(line.maxFadeEnd._x0z(), line.max._x0z(), split, normal))
             {
-                Vector3 intersection = GetIntersectionAndColor3(line.maxFadeEnd,
-                    line.max,
-                    color,
-                    darkColor,
-                    split,
-                    normal,
+                Vector3 intersection = GetIntersectionAndColor(
+                    line.maxFadeEnd, line.max, 
+                    color, darkColor,
+                    split, normal,
                     out var intersectionColor
                 );
                     
@@ -144,29 +140,13 @@ namespace Viewer.Runtime.Widgets
             }
         }
 
-        private Vector3 GetIntersectionAndColor3(Vector3 min, Vector3 max, Color minColor, Color maxColor, Vector3 split, Vector3 normal, out Color intersectionColor)
+        private Vector3 GetIntersectionAndColor(Vector3 min, Vector3 max, Color minColor, Color maxColor, Vector3 split, Vector3 normal, out Color intersectionColor)
         {
             var intersection = GetIntersection(min._x0z(), max._x0z(), split, normal);
             var t = (intersection - min._x0z()).magnitude / (max._x0z() - min._x0z()).magnitude;
             intersectionColor = Color.Lerp(minColor, maxColor, t);
             return intersection;
         }
-        
-        // private Vector3 GetIntersectionAndColor2((Vector3 min, Vector3 minFadeEnd, Vector3 maxFadeEnd, Vector3 max, float intensity) line, Color color, Vector3 split, Vector3 normal, out Color intersectionColor)
-        // {
-        //     var intersection = GetIntersection(line.maxFadeEnd._x0z(), line.max._x0z(), split, normal);
-        //     var t = (intersection - line.maxFadeEnd._x0z()).magnitude / (line.max._x0z() - line.maxFadeEnd._x0z()).magnitude;
-        //     intersectionColor = Color.Lerp(color, darkColor, t);
-        //     return intersection;
-        // }
-        //
-        // private Vector3 GetIntersetionAndColor((Vector3 min, Vector3 minFadeEnd, Vector3 maxFadeEnd, Vector3 max, float intensity) line, Color color, Vector3 split, Vector3 normal, out Color intersectionColor)
-        // {
-        //     var intersection = GetIntersection(line.min._x0z(), line.minFadeEnd._x0z(), split, normal);
-        //     var t = (intersection - line.min._x0z()).magnitude / (line.minFadeEnd._x0z() - line.min._x0z()).magnitude;
-        //     intersectionColor = Color.Lerp(darkColor, color, t);
-        //     return intersection;
-        // }
 
         bool CrossesPlane(Vector3 a, Vector3 b, Vector3 split, Vector3 normal) => Vector3.Dot(a - split, normal) * Vector3.Dot(b - split, normal) < 0;
             

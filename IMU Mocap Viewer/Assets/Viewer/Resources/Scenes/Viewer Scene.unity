@@ -164,42 +164,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -944628639613478452, guid: 2de721e259487624881745db15080062, type: 3}
   m_ActionId: d1c1356d-5089-4eb1-8db2-7b7c62d0445c
---- !u!21 &86438653
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Plot_Stretchable
-  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _PixelScaleFactor: 1
-    - _Thickness: 4
-    m_Colors:
-    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
-    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1001 &112625957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -366,7 +330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 379
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -468,6 +432,7 @@ MonoBehaviour:
   translationCursor: {fileID: 843806520}
   rotationCursor: {fileID: 571625658}
   heightStick: {fileID: 277774847}
+  mouseDebug: {fileID: 0}
 --- !u!114 &158877615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,7 +633,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 451
+      value: 372
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1305,7 +1270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 595
+      value: 516
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1668,7 +1633,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 667
+      value: 588
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1720,6 +1685,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &889139686
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Plot_Stretchable
+  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _PixelScaleFactor: 1
+    - _Thickness: 5
+    m_Colors:
+    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
+    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &932524536
 GameObject:
   m_ObjectHideFlags: 0
@@ -2136,7 +2137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 523
+      value: 444
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2486,6 +2487,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -944628639613478452, guid: 2de721e259487624881745db15080062, type: 3}
   m_ActionId: ce5894db-07e1-4a39-8e66-89ed4d883304
+--- !u!21 &1484149206
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Plot_Stretchable
+  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _PixelScaleFactor: 1
+    - _Thickness: 4
+    m_Colors:
+    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
+    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &1585730267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2678,7 +2715,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mininmumWidthInPixels: 480
   maximumHeightInPixels: 1080
-  scaleOverride: 1
 --- !u!114 &1642079167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2693,42 +2729,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1673570339}
   delayFrames: 1
---- !u!21 &1660398295
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Plot_Stretchable
-  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _PixelScaleFactor: 1
-    - _Thickness: 5
-    m_Colors:
-    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
-    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &1673570338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2857,8 +2857,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 559, y: -0}
-  m_SizeDelta: {x: 1118, y: 0}
+  m_AnchoredPosition: {x: 480, y: -0}
+  m_SizeDelta: {x: 960, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1967537429
 CanvasRenderer:
@@ -3128,7 +3128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 739
+      value: 660
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.y

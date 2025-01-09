@@ -6,14 +6,17 @@ namespace Viewer.Runtime
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void CalculateForCamera() => CalculateForCamera(Camera.main);
+        
 
         public static void CalculateForCamera(Camera camera)
         {
+            DpiScaleFactor = Screen.dpi / 96f; // 96 is the standard DPI for Windows TODO: Check for other platforms
             PixelScaleFactor = (2.0f * Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad)) / Screen.height;
             CameraPosition = camera.transform.position;
             CameraForward = camera.transform.forward;
         }
 
+        public static float DpiScaleFactor { get; private set; } = 1f;
         public static float PixelScaleFactor { get; private set; } = 1f;
         public static Vector3 CameraPosition { get; private set; } = Vector3.zero;
         public static Vector3 CameraForward { get; private set; } = Vector3.forward;

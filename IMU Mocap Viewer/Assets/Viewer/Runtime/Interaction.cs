@@ -14,7 +14,7 @@ namespace Viewer.Runtime
         [SerializeField, Range(0.1f, 10f)] private float heightSensitivity = 2f;
         [SerializeField] private int numberZoomTicks = 100;
         [SerializeField] private Vector2 distanceRange = new(0.1f, 10f);
-        [SerializeField] private Vector2 initialAngle = new(120f, -30f); // is this wrong way round ?
+        [SerializeField] private Vector2 initialAngle = new(120f, -30f); // TODO: Is this wrong way round?
         [SerializeField] private Vector2 angle = new(60f, -30f);
         [SerializeField, Range(1f, 3f)] private float margin = 1.125f;
 
@@ -38,6 +38,7 @@ namespace Viewer.Runtime
 
         private (Vector3 offset, float azimuth)? rotationSettings;
         private bool shouldReleaseInput;
+        private bool hasFocus;
 
         private bool shouldResetView;
         private (Vector3 origin, Vector3 hitPoint)? translationSettings;
@@ -56,6 +57,8 @@ namespace Viewer.Runtime
             viewerInputs = new ViewerInputs();
 
             viewerInputs.Enable();
+
+            hasFocus = true;
 
             mainCamera = Camera.main;
 
@@ -93,19 +96,28 @@ namespace Viewer.Runtime
 
         private void OnDestroy() => viewerInputs.Dispose();
 
-        private void OnApplicationFocus(bool hasFocus) => shouldReleaseInput = true;
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            shouldReleaseInput = true;
+
+            this.hasFocus = hasFocus;
+        }
 
         private bool CheckForReset(bool overUI) => (overUI == false && viewerInputs.Plotter.DoubleClick.triggered) | Utils.ConsumeFlag(ref shouldResetView);
 
-        private (bool click, bool rightClick, Vector2 point, Vector2 pointDelta, int scrollWheel, bool control) GetInput() =>
-        (
-            viewerInputs.Plotter.Click.ReadValue<float>() > 0.5f,
-            viewerInputs.Plotter.RightClick.ReadValue<float>() > 0.5f,
-            viewerInputs.Plotter.Point.ReadValue<Vector2>(),
-            viewerInputs.Plotter.PointDelta.ReadValue<Vector2>(),
-            (int)Mathf.Clamp(viewerInputs.Plotter.ScrollWheel.ReadValue<Vector2>().y, -1, 1),
-            viewerInputs.Plotter.Control.ReadValue<float>() > 0.5f
-        );
+        private (bool click, bool rightClick, Vector2 point, Vector2 pointDelta, int scrollWheel, bool control) GetInput()
+        {
+            if (hasFocus == false) return (false, false, Vector2.zero, Vector2.zero, 0, false);
+
+            return (
+                viewerInputs.Plotter.Click.ReadValue<float>() > 0.5f,
+                viewerInputs.Plotter.RightClick.ReadValue<float>() > 0.5f,
+                viewerInputs.Plotter.Point.ReadValue<Vector2>(),
+                viewerInputs.Plotter.PointDelta.ReadValue<Vector2>(),
+                (int)Mathf.Clamp(viewerInputs.Plotter.ScrollWheel.ReadValue<Vector2>().y, -1, 1),
+                viewerInputs.Plotter.Control.ReadValue<float>() > 0.5f
+            );
+        }
 
         private void UpdateView()
         {
