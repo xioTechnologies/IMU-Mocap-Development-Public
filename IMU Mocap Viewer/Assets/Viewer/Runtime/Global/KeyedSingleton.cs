@@ -14,7 +14,7 @@ namespace Viewer.Runtime.Global
             if (instance == null) return null;
 
             Instances[id] = instance;
-        
+
             return instance;
         }
     }

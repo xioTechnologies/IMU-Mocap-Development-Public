@@ -32,12 +32,12 @@ namespace Viewer.Runtime
         private static void Initialize()
         {
             PlayerLoopSystem playerLoop = PlayerLoop.GetCurrentPlayerLoop();
-        
+
             if (FindPlayerLoopSystemIndex(playerLoop, typeof(PreUpdate), out int index))
             {
                 InsertUpdateFunction(ref playerLoop.subSystemList[index], OnProcessDataFrameHandler);
             }
-        
+
             if (FindPlayerLoopSystemIndex(playerLoop, typeof(EarlyUpdate), out index))
             {
                 InsertUpdateFunction(ref playerLoop.subSystemList[index], OnIngestDataHandler);
@@ -49,17 +49,17 @@ namespace Viewer.Runtime
         private static void InsertUpdateFunction(ref PlayerLoopSystem playerLoopSystem, PlayerLoopSystem.UpdateFunction updateFunction)
         {
             PlayerLoopSystem[] subSystems = playerLoopSystem.subSystemList ?? new PlayerLoopSystem[0];
-        
+
             var newSubSystems = new PlayerLoopSystem[subSystems.Length + 1];
-        
+
             Array.Copy(subSystems, newSubSystems, subSystems.Length);
-        
+
             newSubSystems[subSystems.Length] = new PlayerLoopSystem
             {
                 type = typeof(Main),
                 updateDelegate = updateFunction
             };
-        
+
             playerLoopSystem.subSystemList = newSubSystems;
         }
 

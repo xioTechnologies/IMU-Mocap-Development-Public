@@ -32,7 +32,7 @@ namespace Viewer.Runtime.Primitives
 
             startPoint = start;
             endPoint = end;
-        
+
             SetDirty();
             UpdateTransform();
         }

@@ -7,22 +7,19 @@ namespace Viewer.Runtime.Widgets
 {
     public sealed class WorldGrid : MonoBehaviour
     {
-        [Header("View")] 
-        [SerializeField] private Transform origin;
+        [Header("View")] [SerializeField] private Transform origin;
         [SerializeField] private float radius = 10f;
         [SerializeField, Range(0f, 1f)] private float fadeProportion = 0.5f;
 
-        [Header("Drawing")] 
-        [SerializeField] private DrawingGroup group;
+        [Header("Drawing")] [SerializeField] private DrawingGroup group;
         [SerializeField] private int maxLineCount = 1000;
         [SerializeField] private Mesh lineMesh;
         [SerializeField] private Material instanceMaterial;
 
-        [Header("Line Properties")] 
-        [SerializeField, Range(0f, 10f)] private float lineWidthPixels = 1f;
+        [Header("Line Properties")] [SerializeField, Range(0f, 10f)]
+        private float lineWidthPixels = 1f;
 
-        [Header("Colors")] 
-        [SerializeField] private Color darkColor;
+        [Header("Colors")] [SerializeField] private Color darkColor;
         [SerializeField] private Color majorLineColor;
         [SerializeField] private Color minorLineColor;
         [SerializeField] private Color xLineColor;
@@ -34,7 +31,7 @@ namespace Viewer.Runtime.Widgets
         private void Awake()
         {
             lines = new StretchableDrawBatch(maxLineCount, lineMesh, instanceMaterial);
-            camera = Camera.main; 
+            camera = Camera.main;
         }
 
         private void OnEnable() => group.RegisterSource(lines);
@@ -52,13 +49,13 @@ namespace Viewer.Runtime.Widgets
             center.y = math.floor(center.y);
             center.z = math.floor(center.z);
             center *= 10f;
-        
+
             Vector3 min = center - Vector3.one._x0z() * (int)radius;
             Vector3 max = center + Vector3.one._x0z() * (int)radius;
 
             int countX = (int)(max.x - min.x);
             int countZ = (int)(max.z - min.z);
-        
+
             for (int x = 0; x <= countX + 1; x++)
             {
                 var xLine = min + Vector3.forward._x0z() * x;
@@ -73,7 +70,7 @@ namespace Viewer.Runtime.Widgets
 
                 PlotFadedLine(line.Value, lineColor, camera.transform.position);
             }
-        
+
             for (int z = 0; z <= countZ + 1; z++)
             {
                 var zLine = min + Vector3.right._x0z() * z;
@@ -102,11 +99,11 @@ namespace Viewer.Runtime.Widgets
                     split, normal,
                     out var intersectionColor
                 );
-                
+
                 lines.AddLine(line.min._x0z(), intersection, lineWidthPixels, darkColor, intersectionColor);
                 lines.AddLine(intersection, line.minFadeEnd._x0z(), lineWidthPixels, intersectionColor, color);
             }
-            else 
+            else
             {
                 lines.AddLine(line.min._x0z(), line.minFadeEnd._x0z(), lineWidthPixels, darkColor, color);
             }
@@ -117,7 +114,7 @@ namespace Viewer.Runtime.Widgets
                 lines.AddLine(line.minFadeEnd._x0z(), intersection, lineWidthPixels, color, color);
                 lines.AddLine(intersection, line.maxFadeEnd._x0z(), lineWidthPixels, color, color);
             }
-            else 
+            else
             {
                 lines.AddLine(line.minFadeEnd._x0z(), line.maxFadeEnd._x0z(), lineWidthPixels, color, color);
             }
@@ -125,16 +122,16 @@ namespace Viewer.Runtime.Widgets
             if (CrossesPlane(line.maxFadeEnd._x0z(), line.max._x0z(), split, normal))
             {
                 Vector3 intersection = GetIntersectionAndColor(
-                    line.maxFadeEnd, line.max, 
+                    line.maxFadeEnd, line.max,
                     color, darkColor,
                     split, normal,
                     out var intersectionColor
                 );
-                    
+
                 lines.AddLine(line.maxFadeEnd._x0z(), intersection, lineWidthPixels, color, intersectionColor);
                 lines.AddLine(intersection, line.max._x0z(), lineWidthPixels, intersectionColor, darkColor);
             }
-            else 
+            else
             {
                 lines.AddLine(line.maxFadeEnd._x0z(), line.max._x0z(), lineWidthPixels, color, darkColor);
             }
@@ -149,13 +146,13 @@ namespace Viewer.Runtime.Widgets
         }
 
         bool CrossesPlane(Vector3 a, Vector3 b, Vector3 split, Vector3 normal) => Vector3.Dot(a - split, normal) * Vector3.Dot(b - split, normal) < 0;
-            
+
         Vector3 GetIntersection(Vector3 a, Vector3 b, Vector3 split, Vector3 normal)
         {
             float t = Vector3.Dot(split - a, normal) / Vector3.Dot(b - a, normal);
             return Vector3.Lerp(a, b, t);
         }
-   
+
         private Vector3 ClosestPointOnLine(Vector3 center, Vector3 pointOnLine, Vector3 lineNormal)
         {
             Vector3 vectorToLine = center - pointOnLine;

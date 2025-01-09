@@ -7,7 +7,7 @@ namespace Viewer.Editor
     public class MeshGenerator
     {
         [MenuItem("Stretchable Meshes/Generate All Meshes")]
-        private static void GenerateAllMeshes() 
+        private static void GenerateAllMeshes()
         {
             GenerateStretchBoxMesh();
             GenerateStretchCylinderMesh6();
@@ -215,10 +215,10 @@ namespace Viewer.Editor
             // Log the completion
             Debug.Log($"Cylinder mesh with {segments} segments saved to {path}");
         }
-    
+
         [MenuItem("Stretchable Meshes/Generate Cylinder Mesh (6)")]
         private static void GenerateStretchCylinderMesh6() => GenerateStretchCylinderMesh(6, "Assets/Viewer/Resources/Stretchable Meshes/Cylinder.asset");
-    
+
         private static void GenerateStretchCylinderMeshWithRoundedCaps(int segments, int capSubdivisions, string path)
         {
             var mesh = new Mesh { name = $"Stretch Cylinder with Rounded Caps {segments}x{capSubdivisions}" };
@@ -300,7 +300,7 @@ namespace Viewer.Editor
             {
                 float theta = Mathf.PI / 2 * (1f - ring / (float)capSubdivisions);
                 float xyScale = radius * Mathf.Cos(theta);
-                float z = radius* Mathf.Sin(theta);
+                float z = radius * Mathf.Sin(theta);
 
                 for (int i = 0; i < segments; i++)
                 {
@@ -539,7 +539,7 @@ namespace Viewer.Editor
             // Log completion
             Debug.Log($"Icosphere mesh with {subdivisions} subdivisions saved to {path}");
         }
-    
+
         [MenuItem("Stretchable Meshes/Generate Icosphere Mesh (2)")]
         private static void GenerateStretchIcosphereMesh2() => GenerateStretchIcosphereMesh(2, "Assets/Viewer/Resources/Stretchable Meshes/Icosphere.asset");
 
@@ -630,7 +630,7 @@ namespace Viewer.Editor
             // Log the completion
             Debug.Log($"Sphere mesh with {latitudeSegments} latitude segments and {longitudeSegments} longitude segments saved to {path}");
         }
-    
+
         [MenuItem("Stretchable Meshes/Generate Sphere Mesh (24x24)")]
         private static void GenerateStretchSphereMesh24x24() => GenerateStretchSphereMesh(24, 24, "Assets/Viewer/Resources/Stretchable Meshes/Sphere.asset");
 
@@ -728,7 +728,7 @@ namespace Viewer.Editor
             // Log completion
             Debug.Log($"Torus mesh with {tubeSegments} tube segments and {ringSegments} ring segments saved to {path}");
         }
-    
+
         [MenuItem("Stretchable Meshes/Generate Circle Mesh (36x12)")]
         private static void GenerateStretchTorusMesh36x16() => GenerateStretchTorusMesh(36, 12, "Assets/Viewer/Resources/Stretchable Meshes/Circle.asset");
 
