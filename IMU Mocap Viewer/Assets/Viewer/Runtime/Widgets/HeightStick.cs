@@ -21,13 +21,13 @@ namespace Viewer.Runtime.Widgets
 
             transform.position = head._x0z();
 
-            stick.LineWidthInPixels = lineWidthInPixels;
+            stick.LineWidthInPixels = lineWidthInPixels * PixelScaleUtility.DpiScaleFactor;
             stick.SetPoints(Vector3.zero, Vector3.up * offset);
 
             handle.transform.position = head;
             handle.LineWidthInPixels = knobSizeInPixels;
 
-            disc.localScale = PixelScaleUtility.GetWorldScaleFromPixels(discSizeInPixels, disc.position);
+            disc.localScale = PixelScaleUtility.GetWorldScaleFromPixels(discSizeInPixels, disc.position) * PixelScaleUtility.DpiScaleFactor;
         }
 
         public void Hide() => gameObject.SetActive(false);

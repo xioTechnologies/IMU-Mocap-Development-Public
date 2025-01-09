@@ -14,7 +14,7 @@ namespace Viewer.Runtime.Widgets
 
         private void Update()
         {
-            transform.localScale = PixelScaleUtility.GetWorldScaleFromPixels(objectSize, transform.position);
+            transform.localScale = PixelScaleUtility.GetWorldScaleFromPixels(objectSize, transform.position) * PixelScaleUtility.DpiScaleFactor;
 
             if (updateRotation) transform.LookAt(mainCamera.transform.position);
         }

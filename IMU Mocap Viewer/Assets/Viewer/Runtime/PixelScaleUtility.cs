@@ -7,7 +7,6 @@ namespace Viewer.Runtime
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void CalculateForCamera() => CalculateForCamera(Camera.main);
 
-
         public static void CalculateForCamera(Camera camera)
         {
             DpiScaleFactor = Screen.dpi / 96f; // 96 is the standard DPI for Windows TODO: Check for other platforms

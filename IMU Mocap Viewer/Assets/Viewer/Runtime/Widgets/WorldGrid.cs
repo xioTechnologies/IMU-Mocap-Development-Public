@@ -89,6 +89,8 @@ namespace Viewer.Runtime.Widgets
 
         private void PlotFadedLine((Vector3 min, Vector3 minFadeEnd, Vector3 maxFadeEnd, Vector3 max, float intensity) line, Color color, Vector3 split)
         {
+            float lineWidth = lineWidthPixels * PixelScaleUtility.DpiScaleFactor; 
+            
             var normal = (line.max._x0z() - line.min._x0z()).normalized;
 
             if (CrossesPlane(line.min._x0z(), line.minFadeEnd._x0z(), split, normal))
@@ -100,23 +102,23 @@ namespace Viewer.Runtime.Widgets
                     out var intersectionColor
                 );
 
-                lines.AddLine(line.min._x0z(), intersection, lineWidthPixels, darkColor, intersectionColor);
-                lines.AddLine(intersection, line.minFadeEnd._x0z(), lineWidthPixels, intersectionColor, color);
+                lines.AddLine(line.min._x0z(), intersection, lineWidth, darkColor, intersectionColor);
+                lines.AddLine(intersection, line.minFadeEnd._x0z(), lineWidth, intersectionColor, color);
             }
             else
             {
-                lines.AddLine(line.min._x0z(), line.minFadeEnd._x0z(), lineWidthPixels, darkColor, color);
+                lines.AddLine(line.min._x0z(), line.minFadeEnd._x0z(), lineWidth, darkColor, color);
             }
 
             if (CrossesPlane(line.minFadeEnd._x0z(), line.maxFadeEnd._x0z(), split, normal))
             {
                 var intersection = GetIntersection(line.minFadeEnd._x0z(), line.maxFadeEnd._x0z(), split, normal);
-                lines.AddLine(line.minFadeEnd._x0z(), intersection, lineWidthPixels, color, color);
-                lines.AddLine(intersection, line.maxFadeEnd._x0z(), lineWidthPixels, color, color);
+                lines.AddLine(line.minFadeEnd._x0z(), intersection, lineWidth, color, color);
+                lines.AddLine(intersection, line.maxFadeEnd._x0z(), lineWidth, color, color);
             }
             else
             {
-                lines.AddLine(line.minFadeEnd._x0z(), line.maxFadeEnd._x0z(), lineWidthPixels, color, color);
+                lines.AddLine(line.minFadeEnd._x0z(), line.maxFadeEnd._x0z(), lineWidth, color, color);
             }
 
             if (CrossesPlane(line.maxFadeEnd._x0z(), line.max._x0z(), split, normal))
@@ -128,12 +130,12 @@ namespace Viewer.Runtime.Widgets
                     out var intersectionColor
                 );
 
-                lines.AddLine(line.maxFadeEnd._x0z(), intersection, lineWidthPixels, color, intersectionColor);
-                lines.AddLine(intersection, line.max._x0z(), lineWidthPixels, intersectionColor, darkColor);
+                lines.AddLine(line.maxFadeEnd._x0z(), intersection, lineWidth, color, intersectionColor);
+                lines.AddLine(intersection, line.max._x0z(), lineWidth, intersectionColor, darkColor);
             }
             else
             {
-                lines.AddLine(line.maxFadeEnd._x0z(), line.max._x0z(), lineWidthPixels, color, darkColor);
+                lines.AddLine(line.maxFadeEnd._x0z(), line.max._x0z(), lineWidth, color, darkColor);
             }
         }
 
