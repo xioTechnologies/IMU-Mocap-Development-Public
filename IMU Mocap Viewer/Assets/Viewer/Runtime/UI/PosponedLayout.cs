@@ -6,7 +6,7 @@ namespace Viewer.Runtime.UI
 {
     public sealed class PosponedLayout : MonoBehaviour
     {
-        [FormerlySerializedAs("topBar"), SerializeField]
+        [SerializeField]
         Transform target;
 
         [SerializeField] int delayFrames = 3;
