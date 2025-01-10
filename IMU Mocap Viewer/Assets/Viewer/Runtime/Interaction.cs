@@ -144,7 +144,8 @@ namespace Viewer.Runtime
             if (CheckForReset(overUI))
             {
                 Reset();
-                FitZoomToDataBounds(true);
+                if (plotter.IsEmpty == false) FitZoomToDataBounds(true);
+                
                 return;
             }
 
