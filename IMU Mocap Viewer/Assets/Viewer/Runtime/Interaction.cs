@@ -144,6 +144,8 @@ namespace Viewer.Runtime
             if (CheckForReset(overUI))
             {
                 Reset();
+                if (plotter.IsEmpty == false) FitZoomToDataBounds(true);
+                
                 return;
             }
 
@@ -153,7 +155,7 @@ namespace Viewer.Runtime
                 else Idle();
 
                 ClearSettingsOfUnusedTools();
-                FitZoomToDataBounds();
+                FitZoomToDataBounds(false);
                 return;
             }
 
@@ -180,7 +182,7 @@ namespace Viewer.Runtime
             UpdateCamera();
         }
 
-        private void FitZoomToDataBounds(bool lockToGround = false)
+        private void FitZoomToDataBounds(bool instantaneous, bool lockToGround = false)
         {
             var bounds = plotter.Bounds;
 
@@ -190,7 +192,8 @@ namespace Viewer.Runtime
             float requiredDistance = PixelScaleUtility.CalculateRequiredDistance(mainCamera, bounds, lockToGround, margin);
             float newDistanceValue = Mathf.Pow(Mathf.InverseLerp(distanceRange.x, distanceRange.y, requiredDistance), 1f / 3f);
 
-            distance = trackingZoomSmoothingEnabled
+            if (instantaneous) distance = newDistanceValue;
+            else distance = trackingZoomSmoothingEnabled
                 ? Mathf.SmoothDamp(distance, newDistanceValue, ref distanceVelocity, trackingZoomSmoothingTime)
                 : newDistanceValue;
 
