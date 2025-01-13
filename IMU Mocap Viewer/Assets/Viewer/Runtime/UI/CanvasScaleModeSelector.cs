@@ -7,7 +7,8 @@ namespace Viewer.Runtime.UI
     [RequireComponent(typeof(CanvasScaler))]
     public sealed class CanvasScaleModeSelector : MonoBehaviour
     {
-        [SerializeField]private float minimumWidthInPixels = 500f;
+        [FormerlySerializedAs("mininmumWidthInPixels"), SerializeField]
+        private float minimumWidthInPixels = 500f;
 
         private CanvasScaler canvasScaler;
 
