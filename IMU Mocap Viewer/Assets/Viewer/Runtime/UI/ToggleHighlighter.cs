@@ -2,25 +2,28 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Viewer.Runtime.UI
 {
-    [RequireComponent(typeof(Toggle))]
+    [RequireComponent(typeof(Toggle), typeof(RectTransform))]
     public sealed class ToggleHighlighter : MonoBehaviour
     {
         [Header("Color Settings")] [SerializeField]
         private Color normalColor = Color.white;
 
         [SerializeField] private Color highlightColor = Color.yellow;
-        [SerializeField] private TMP_Text text; 
-
+        [SerializeField] private string tooltipText = "Tooltip";
+        [SerializeField] private Vector3 tooltipOffset;
         private Toggle toggle;
         private Selectable selectable;
         private ColorBlock colors;
+        private new RectTransform rectTransform;
 
         private void Awake()
         {
+            rectTransform = GetComponent<RectTransform>();
             toggle = GetComponent<Toggle>();
             selectable = GetComponent<Selectable>();
             colors = selectable.colors;
@@ -29,6 +32,23 @@ namespace Viewer.Runtime.UI
             
             OnToggleValueChanged(toggle.isOn);
         }
+
+        private void OnToggleValueChanged(bool isOn)
+        {
+            colors.normalColor = isOn ? highlightColor : normalColor;
+            colors.highlightedColor = isOn ? highlightColor : normalColor;
+            colors.selectedColor = isOn ? highlightColor : normalColor;
+
+            selectable.colors = colors;
+        }
+
+        private void OnDestroy()
+        {
+            if (toggle == null) return;
+
+            toggle.onValueChanged.RemoveListener(OnToggleValueChanged);
+        }
+        
         
         void Update()
         {
@@ -36,11 +56,11 @@ namespace Viewer.Runtime.UI
             
             if (EventSystem.current.IsPointerOverGameObject())
             {
-                // if the pointer is over the game object, then show the tooltip text
+                Vector2 mousePosition = Mouse.current.position.ReadValue();
                 
                 PointerEventData pointerData = new PointerEventData(EventSystem.current)
                 {
-                    position = Input.mousePosition
+                    position = mousePosition
                 };
 
                 List<RaycastResult> results = new List<RaycastResult>();
@@ -60,24 +80,9 @@ namespace Viewer.Runtime.UI
                     break;
                 }
             }
-
-            text.gameObject.SetActive(hover || EventSystem.current.currentSelectedGameObject == toggle.gameObject);
-        }
-
-        private void OnToggleValueChanged(bool isOn)
-        {
-            colors.normalColor = isOn ? highlightColor : normalColor;
-            colors.highlightedColor = isOn ? highlightColor : normalColor;
-            colors.selectedColor = isOn ? highlightColor : normalColor;
-
-            selectable.colors = colors;
-        }
-
-        private void OnDestroy()
-        {
-            if (toggle == null) return;
-
-            toggle.onValueChanged.RemoveListener(OnToggleValueChanged);
+            
+            if (hover || EventSystem.current.currentSelectedGameObject == toggle.gameObject)
+                Tooltip.ShowTooltip(tooltipText, rectTransform, tooltipOffset);
         }
     }
 }
