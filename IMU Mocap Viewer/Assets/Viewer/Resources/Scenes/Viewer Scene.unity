@@ -150,42 +150,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1181713537}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &25733540
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Plot_Stretchable
-  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _PixelScaleFactor: 0.0016856942
-    - _Thickness: 4
-    m_Colors:
-    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
-    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!114 &51721642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,7 +330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 300
+      value: 274
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -418,6 +382,7 @@ GameObject:
   - component: {fileID: 158877612}
   - component: {fileID: 158877613}
   - component: {fileID: 158877615}
+  - component: {fileID: 158877616}
   m_Layer: 0
   m_Name: Interaction
   m_TagString: Untagged
@@ -502,6 +467,19 @@ MonoBehaviour:
   onFalse:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &158877616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158877611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8746edf121f47a08b4fd6f6a6f4fab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseData: {fileID: 11400000, guid: a16c68c688604194cabac6c1a5a9e2ae, type: 2}
 --- !u!1001 &197191689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -668,7 +646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 372
+      value: 346
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1305,7 +1283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 516
+      value: 490
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1668,7 +1646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 588
+      value: 562
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1785,7 +1763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setting: {fileID: 11400000, guid: 3c63284a7cae97745a33d5996de79656, type: 2}
---- !u!21 &1002786330
+--- !u!21 &944272422
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -1814,7 +1792,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _PixelScaleFactor: 0.0016856942
+    - _PixelScaleFactor: 1
     - _Thickness: 5
     m_Colors:
     - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
@@ -2172,7 +2150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 444
+      value: 418
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2536,6 +2514,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -944628639613478452, guid: 2de721e259487624881745db15080062, type: 3}
   m_ActionId: 669e77c0-0eee-4e1c-8df5-a30386cb6879
+--- !u!21 &1588496912
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Plot_Stretchable
+  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _PixelScaleFactor: 1
+    - _Thickness: 4
+    m_Colors:
+    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
+    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &1597881998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2560,6 +2574,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1624570208}
   - component: {fileID: 1624570209}
+  - component: {fileID: 1624570210}
   m_Layer: 0
   m_Name: Connection
   m_TagString: Untagged
@@ -2596,6 +2611,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plotter: {fileID: 666764578}
   listenPort: 6000
+--- !u!114 &1624570210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624570207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f055672f7a64db38ff992cbb75cc9e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setting: {fileID: 11400000, guid: a16c68c688604194cabac6c1a5a9e2ae, type: 2}
+  valueChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1624570209}
+        m_TargetAssemblyTypeName: Viewer.Runtime.Connection, Viewer.Runtime
+        m_MethodName: set_Paused
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onTrue:
+    m_PersistentCalls:
+      m_Calls: []
+  onFalse:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1642079161
 GameObject:
   m_ObjectHideFlags: 0
@@ -2855,8 +2904,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -0}
-  m_SizeDelta: {x: 960, y: 0}
+  m_AnchoredPosition: {x: 454, y: -0}
+  m_SizeDelta: {x: 908, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1967537429
 CanvasRenderer:
@@ -3126,7 +3175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 660
+      value: 634
       objectReference: {fileID: 0}
     - target: {fileID: 4475209520929583024, guid: df6ad33182409d944b92a6995d0853ce, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -723,6 +723,15 @@ namespace Viewer.Runtime
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Paused"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""51a4a5f2-8238-4d51-8d2e-f74eb241c3d8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1242,6 +1251,17 @@ namespace Viewer.Runtime
                     ""action"": ""Point Delta"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c62327b9-c586-466c-89a4-9095683b62aa"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Paused"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1277,6 +1297,7 @@ namespace Viewer.Runtime
             m_Plotter_Control = m_Plotter.FindAction("Control", throwIfNotFound: true);
             m_Plotter_Shift = m_Plotter.FindAction("Shift", throwIfNotFound: true);
             m_Plotter_PointDelta = m_Plotter.FindAction("Point Delta", throwIfNotFound: true);
+            m_Plotter_Paused = m_Plotter.FindAction("Paused", throwIfNotFound: true);
         }
 
         ~@ViewerInputs()
@@ -1484,6 +1505,7 @@ namespace Viewer.Runtime
         private readonly InputAction m_Plotter_Control;
         private readonly InputAction m_Plotter_Shift;
         private readonly InputAction m_Plotter_PointDelta;
+        private readonly InputAction m_Plotter_Paused;
         public struct PlotterActions
         {
             private @ViewerInputs m_Wrapper;
@@ -1502,6 +1524,7 @@ namespace Viewer.Runtime
             public InputAction @Control => m_Wrapper.m_Plotter_Control;
             public InputAction @Shift => m_Wrapper.m_Plotter_Shift;
             public InputAction @PointDelta => m_Wrapper.m_Plotter_PointDelta;
+            public InputAction @Paused => m_Wrapper.m_Plotter_Paused;
             public InputActionMap Get() { return m_Wrapper.m_Plotter; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1553,6 +1576,9 @@ namespace Viewer.Runtime
                 @PointDelta.started += instance.OnPointDelta;
                 @PointDelta.performed += instance.OnPointDelta;
                 @PointDelta.canceled += instance.OnPointDelta;
+                @Paused.started += instance.OnPaused;
+                @Paused.performed += instance.OnPaused;
+                @Paused.canceled += instance.OnPaused;
             }
 
             private void UnregisterCallbacks(IPlotterActions instance)
@@ -1599,6 +1625,9 @@ namespace Viewer.Runtime
                 @PointDelta.started -= instance.OnPointDelta;
                 @PointDelta.performed -= instance.OnPointDelta;
                 @PointDelta.canceled -= instance.OnPointDelta;
+                @Paused.started -= instance.OnPaused;
+                @Paused.performed -= instance.OnPaused;
+                @Paused.canceled -= instance.OnPaused;
             }
 
             public void RemoveCallbacks(IPlotterActions instance)
@@ -1646,6 +1675,7 @@ namespace Viewer.Runtime
             void OnControl(InputAction.CallbackContext context);
             void OnShift(InputAction.CallbackContext context);
             void OnPointDelta(InputAction.CallbackContext context);
+            void OnPaused(InputAction.CallbackContext context);
         }
     }
 }
