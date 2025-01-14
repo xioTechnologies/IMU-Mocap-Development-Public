@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 905783338990321133}
   - component: {fileID: 551763214657175697}
   - component: {fileID: 2752093921992376346}
+  - component: {fileID: 2064873569530408663}
   m_Layer: 5
   m_Name: Setting Toggle
   m_TagString: Untagged
@@ -100,7 +101,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalColor: {r: 0.24313727, g: 0.24313727, b: 0.25882354, a: 1}
   highlightColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
-  tooltipText: Tooltip
+--- !u!114 &2064873569530408663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4913997067134462927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95fb1157a4d490d8a16c392912c7993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipText: 
+  useHoverOffset: 1
+  hoverOffset: {x: -10, y: -20}
 --- !u!1 &7655943830547348390
 GameObject:
   m_ObjectHideFlags: 0
