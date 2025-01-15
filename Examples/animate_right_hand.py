@@ -37,7 +37,7 @@ for angle in [np.sin(x) for x in np.linspace(0, np.pi, 100)]:
 # Plot
 model.root.plot(frames)
 
-# Stream to UI
+# Stream to IMU Mocap Viewer
 connection = imumocap.viewer.Connection()
 
 while True:

@@ -40,7 +40,7 @@ for index, _ in enumerate(timestamps):
 # Plot
 model.root.plot(frames)
 
-# Stream to UI
+# Stream to IMU Mocap Viewer
 connection = imumocap.viewer.Connection()
 
 while True:
