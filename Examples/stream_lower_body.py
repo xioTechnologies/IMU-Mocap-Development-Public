@@ -14,7 +14,7 @@ ignored = [
 
 imus = hardware.setup([l.name for l in model.root.flatten() if l.name not in ignored])
 
-# Stream to UI
+# Stream to IMU Mocap Viewer
 connection = imumocap.ui.Connection()
 
 

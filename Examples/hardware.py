@@ -135,7 +135,7 @@ def _verify(names: List[str], messages: List[ximu3.NetworkAnnouncementMessage]) 
     missing = [n for n, m in names_map.items() if not m]
 
     if len(missing) > 0:
-        print(f"{colorama.Fore.RED}Missing ({len(missing)}): {", ".join(missing)}{colorama.Style.RESET_ALL}")
+        print(f"{colorama.Fore.RED}Missing ({len(missing)}): {', '.join(missing)}{colorama.Style.RESET_ALL}")
         return False
 
     print(f"{colorama.Fore.GREEN}Setup complete{colorama.Style.RESET_ALL}")
