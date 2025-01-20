@@ -7,7 +7,6 @@ namespace Viewer.Runtime.Widgets
         [SerializeField, Range(0, 500)] float objectSize = 10f;
 
         private bool updateRotation = false;
-
         private Camera mainCamera;
 
         private void Awake() => mainCamera = Camera.main;
@@ -17,6 +16,8 @@ namespace Viewer.Runtime.Widgets
             transform.localScale = PixelScaleUtility.GetWorldScaleFromPixels(objectSize, transform.position) * PixelScaleUtility.DpiScaleFactor;
 
             if (updateRotation) transform.LookAt(mainCamera.transform.position);
+            
+            updateRotation = false;
         }
 
         public void Hide() => gameObject.SetActive(false);
@@ -25,7 +26,7 @@ namespace Viewer.Runtime.Widgets
         {
             transform.position = getPoint;
 
-            updateRotation = gameObject.activeSelf == false;
+            updateRotation |= gameObject.activeSelf == false;
 
             gameObject.SetActive(true);
         }
