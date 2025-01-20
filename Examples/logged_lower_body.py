@@ -1,3 +1,4 @@
+import sys
 import time
 
 import imumocap.solvers
@@ -7,8 +8,10 @@ import scipy
 import ximu3csv
 from imumocap import Matrix
 
+dont_block = "dont_block" in sys.argv  # don't block when script run by CI
+
 # Import IMU data
-devices = ximu3csv.read("Logged Lower Body", [ximu3csv.MessageType.QUATERNION])
+devices = ximu3csv.read("Logged Lower Body", [ximu3csv.DataMessageType.QUATERNION])
 
 # Resample IMU data and arrange as dictionary of device names
 first_timestamp = np.max([d.quaternion.timestamp[0] for d in devices]) / 1e6  # convert microseconds to seconds
@@ -38,7 +41,7 @@ for index, _ in enumerate(timestamps):
     frames.append({l.name: l.joint for l in model.root.flatten()})  # each frame is a dictionary of joint matrices
 
 # Plot
-model.root.plot(frames)
+model.root.plot(frames, block=not dont_block)
 
 # Stream to IMU Mocap Viewer
 connection = imumocap.viewer.Connection()
@@ -51,3 +54,6 @@ while True:
             model.root.dictionary()[name].joint = joint
 
         connection.send(imumocap.viewer.link_to_primitives(model.root))
+
+    if dont_block:
+        break

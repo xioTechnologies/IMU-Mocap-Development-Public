@@ -105,6 +105,7 @@ class Link:
         figsize: Union[None, Tuple[float, float]] = None,  # see matplotlib.pyplot.figure
         dpi: Union[None, float] = None,  # see matplotlib.pyplot.figure
         hide_tick_labels: bool = True,  # hides the tick labels
+        block: Union[None, bool] = None,  # see matplotlib.pyplot.show
     ) -> None:
         links = self.flatten()
 
@@ -223,7 +224,7 @@ class Link:
         # Static plot
         if frames is None:
             update()
-            plt.show()
+            plt.show(block=block)
             return
 
         # Animation
@@ -232,4 +233,4 @@ class Link:
         if file_name:
             anim.save(file_name, writer=animation.PillowWriter(fps), dpi="figure", progress_callback=lambda i, n: print(f"Saving frame {i + 1} of {n}"))
         else:
-            plt.show()  # play animation
+            plt.show(block=block)  # play animation

@@ -8,6 +8,34 @@ on:
     branches: [ main ]
 
 jobs:
+  examples:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install matplotlib
+          python -m pip install numpy
+          python -m pip install scipy
+          python -m pip install ximu3csv
+
+      - name: Install Python package
+        run: python -m pip install .
+
+      - name: Run examples
+        working-directory: Examples
+        run: |
+          python animate_body.py dont_block
+          python animate_body_with_hands.py dont_block
+          python animate_body_with_wheelchair.py dont_block
+          python animate_body_with_wheelchair_and_hands.py dont_block
+          python animate_left_hand.py dont_block
+          python animate_right_hand.py dont_block
+          python logged_lower_body.py dont_block
+
   imu-mocap-viewer:
     runs-on: ${{ matrix.target[0] }}
     strategy:
@@ -17,7 +45,7 @@ jobs:
           - [ macos-latest, macOS, StandaloneOSX ]
           - [ windows-latest, Windows, StandaloneWindows64 ]
           - [ ubuntu-latest, ubuntu, StandaloneLinux64 ]
-    
+
     steps:
       - uses: actions/checkout@v4
 
@@ -95,7 +123,7 @@ jobs:
 
       - name: Create installer
         run: |
-          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" WindowsInstaller.iss        
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" WindowsInstaller.iss
 
       - uses: actions/upload-artifact@v4
         with:
