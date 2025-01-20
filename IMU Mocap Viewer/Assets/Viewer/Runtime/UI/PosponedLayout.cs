@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -17,6 +18,12 @@ namespace Viewer.Runtime.UI
             target.gameObject.SetActive(false);
 
             countDown = delayFrames;
+        }
+
+        private void OnEnable()
+        {
+            Canvas.ForceUpdateCanvases();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(target.GetComponent<RectTransform>());
         }
 
         private void Update()

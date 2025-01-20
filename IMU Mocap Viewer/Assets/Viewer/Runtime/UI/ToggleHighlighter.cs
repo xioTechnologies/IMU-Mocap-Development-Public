@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Viewer.Runtime.UI
@@ -10,7 +14,6 @@ namespace Viewer.Runtime.UI
         private Color normalColor = Color.white;
 
         [SerializeField] private Color highlightColor = Color.yellow;
-
         private Toggle toggle;
         private Selectable selectable;
         private ColorBlock colors;
@@ -22,7 +25,7 @@ namespace Viewer.Runtime.UI
             colors = selectable.colors;
 
             toggle.onValueChanged.AddListener(OnToggleValueChanged);
-
+            
             OnToggleValueChanged(toggle.isOn);
         }
 
