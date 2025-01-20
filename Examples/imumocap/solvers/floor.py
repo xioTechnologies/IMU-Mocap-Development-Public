@@ -7,7 +7,7 @@ from ..matrix import Matrix
 # contact with the floor.
 
 
-def floor(root: Link):
+def floor(root: Link) -> None:
     links = root.flatten()
 
     joints_z = np.array([l.get_joint_global().z for l in links])

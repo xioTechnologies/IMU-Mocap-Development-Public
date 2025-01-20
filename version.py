@@ -4,7 +4,7 @@ import re
 version = "0.0.0"
 
 
-def replace(file_path, string):
+def replace(file_path: str, string: str) -> None:
     with open(file_path) as file:
         lines = file.readlines()
 

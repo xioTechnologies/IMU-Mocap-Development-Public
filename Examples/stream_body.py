@@ -27,7 +27,7 @@ imus = hardware.setup([l.name for l in model.root.flatten() if l.name not in ign
 connection = imumocap.viewer.Connection()
 
 
-def calibrate():
+def calibrate() -> None:
     print("Calibrating in...")
 
     for countdown in [3, 2, 1]:

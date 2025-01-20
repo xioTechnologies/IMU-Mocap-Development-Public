@@ -49,7 +49,7 @@ CARPUS_LENGTH = 0.03
 
 
 class Model(ABC):
-    def __init__(self):
+    def __init__(self) -> None:
         # Head
         self.head = Link("Head", Matrix(z=HEAD_LENGTH))
         self.neck = Link("Neck", Matrix(z=NECK_LENGTH)).connect(self.head)
@@ -173,7 +173,7 @@ class Model(ABC):
 
     @property
     @abstractmethod
-    def root(self):
+    def root(self) -> Link:
         pass
 
     def left_first_transformation(self, end: Matrix) -> Matrix:
@@ -186,49 +186,49 @@ class Model(ABC):
 
         return alignment * end * alignment.T
 
-    def _connect_hands_to_arms(self):
+    def _connect_hands_to_arms(self) -> None:
         self.left_forearm.connect(self.left_hand)
         self.right_forearm.connect(self.right_hand)
 
-    def _connect_legs_to_pelvis(self):
+    def _connect_legs_to_pelvis(self) -> None:
         self.pelvis.connect(self.left_upper_leg, Matrix(y=PELVIS_WIDTH / 2, z=-PELVIS_LENGTH))
         self.pelvis.connect(self.right_upper_leg, Matrix(y=-PELVIS_WIDTH / 2, z=-PELVIS_LENGTH))
 
-    def _connect_lumbar_to_pelvis(self):
+    def _connect_lumbar_to_pelvis(self) -> None:
         self.pelvis.connect(self.lower_lumbar)
 
-    def _connect_pelvis_to_seat(self):
+    def _connect_pelvis_to_seat(self) -> None:
         self.seat.connect(self.pelvis)
 
-    def _connect_carpi_to_arms(self):
+    def _connect_carpi_to_arms(self) -> None:
         self.left_forearm.connect(self.left_carpus)
         self.right_forearm.connect(self.right_carpus)
 
 
 class UpperBody(Model):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         self._connect_hands_to_arms()
 
     @property
-    def root(self):
+    def root(self) -> Link:
         return self.lower_lumbar
 
 
 class LowerBody(Model):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         self._connect_legs_to_pelvis()
 
     @property
-    def root(self):
+    def root(self) -> Link:
         return self.pelvis
 
 
 class Body(Model):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         self._connect_hands_to_arms()
@@ -236,21 +236,21 @@ class Body(Model):
         self._connect_legs_to_pelvis()
 
     @property
-    def root(self):
+    def root(self) -> Link:
         return self.pelvis
 
 
 class Wheelchair(Model):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     @property
-    def root(self):
+    def root(self) -> Link:
         return self.seat
 
 
 class BodyWithWheelchair(Model):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         self._connect_hands_to_arms()
@@ -259,41 +259,41 @@ class BodyWithWheelchair(Model):
         self._connect_pelvis_to_seat()
 
     @property
-    def root(self):
+    def root(self) -> Link:
         return self.seat
 
 
 class LeftHand(Model):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     @property
-    def root(self):
+    def root(self) -> Link:
         return self.left_carpus
 
 
 class RightHand(Model):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     @property
-    def root(self):
+    def root(self) -> Link:
         return self.right_carpus
 
 
 class UpperBodyWithHands(Model):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         self._connect_carpi_to_arms()
 
     @property
-    def root(self):
+    def root(self) -> Link:
         return self.lower_lumbar
 
 
 class BodyWithHands(Model):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         self._connect_carpi_to_arms()
@@ -301,12 +301,12 @@ class BodyWithHands(Model):
         self._connect_legs_to_pelvis()
 
     @property
-    def root(self):
+    def root(self) -> Link:
         return self.pelvis
 
 
 class BodyWithWheelchairAndHands(Model):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         self._connect_carpi_to_arms()
@@ -315,5 +315,5 @@ class BodyWithWheelchairAndHands(Model):
         self._connect_pelvis_to_seat()
 
     @property
-    def root(self):
+    def root(self) -> Link:
         return self.seat
