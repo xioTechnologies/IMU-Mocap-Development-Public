@@ -99,6 +99,8 @@ class Connection:
 
         self.__socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+        self.__socket.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 65535)
+
         self.__buffer_size = self.__socket.getsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF)
 
     def __del__(self) -> None:
