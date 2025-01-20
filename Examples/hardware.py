@@ -11,7 +11,7 @@ class Imu:
     __quaternion = np.array([1, 0, 0, 0])
     __button_pressed = False
 
-    def __init__(self, connection_info: ximu3.UdpConnectionInfo):
+    def __init__(self, connection_info: ximu3.UdpConnectionInfo) -> None:
         self.__connection = ximu3.Connection(connection_info)
 
         if self.__connection.open() != ximu3.RESULT_OK:
@@ -25,7 +25,7 @@ class Imu:
         self.__connection.add_quaternion_callback(self.__quaternion_callback)
         self.__connection.add_notification_callback(self.__notification_callback)
 
-    def close(self):
+    def close(self) -> None:
         self.__connection.close()
 
     def send_command(self, key: str, value=None) -> str:
@@ -52,10 +52,10 @@ class Imu:
 
         return json.loads(responses[0])[key]
 
-    def __quaternion_callback(self, message: ximu3.QuaternionMessage):
+    def __quaternion_callback(self, message: ximu3.QuaternionMessage) -> None:
         self.__quaternion = np.array([message.w, message.x, message.y, message.z])
 
-    def __notification_callback(self, message: ximu3.NotificationMessage):
+    def __notification_callback(self, message: ximu3.NotificationMessage) -> None:
         if message.string == "Button pressed.":
             self.__button_pressed = True
 
@@ -109,7 +109,7 @@ def _verify(names: List[str], messages: List[ximu3.NetworkAnnouncementMessage]) 
 
     unassigned = [m for m in messages if m not in names_map.values()]
 
-    def print_devices(prefix: str, messages: List[ximu3.NetworkAnnouncementMessage]):
+    def print_devices(prefix: str, messages: List[ximu3.NetworkAnnouncementMessage]) -> None:
         print(f"{prefix} ({len(messages)}):")
 
         for message in messages:
@@ -154,7 +154,7 @@ def _yes_or_no(question: str) -> bool:
             return False
 
 
-def _assign(names: List[str], messages: List[ximu3.NetworkAnnouncementMessage]):
+def _assign(names: List[str], messages: List[ximu3.NetworkAnnouncementMessage]) -> None:
     imus = [Imu(m.to_udp_connection_info()) for m in messages]
 
     for imu in imus:

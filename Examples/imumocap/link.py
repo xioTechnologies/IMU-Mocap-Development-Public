@@ -8,7 +8,7 @@ from .matrix import Matrix
 
 
 class Link:
-    def __init__(self, name, end: Matrix, wheel_axis: Matrix = Matrix()):
+    def __init__(self, name, end: Matrix, wheel_axis: Matrix = Matrix()) -> None:
         self.__name = str(name)
         self.__origin = Matrix()  # link origin in global frame
         self.__joint = Matrix()  # joint rotation relative to origin
@@ -30,7 +30,7 @@ class Link:
         return self.__joint.copy()
 
     @joint.setter
-    def joint(self, joint: Matrix):
+    def joint(self, joint: Matrix) -> None:
         if self.__is_root:
             self.__joint = joint
         else:
@@ -42,7 +42,7 @@ class Link:
         return self.__imu.copy()
 
     @imu.setter
-    def imu(self, imu: Matrix):
+    def imu(self, imu: Matrix) -> None:
         self.__imu = Matrix(x=self.__imu.x, y=self.__imu.y, z=self.__imu.z, rotation=imu.rotation)  # ignore imu.xyz
 
     @property
@@ -50,17 +50,17 @@ class Link:
         return self.__links
 
     @property
-    def length(self):
+    def length(self) -> float:
         return np.linalg.norm(self.__end.xyz)
 
-    def __update(self, origin: Union[None, Matrix] = None):
+    def __update(self, origin: Union[None, Matrix] = None) -> None:
         if origin is not None:
             self.__origin = origin
 
         for link, matrix in self.__links:
             link.__update(self.__origin * self.joint * self.__end * matrix)
 
-    def connect(self, link: "Link", matrix: Matrix = Matrix()):  # matrix is the origin of the next link relative to the end of this link
+    def connect(self, link: "Link", matrix: Matrix = Matrix()) -> "Link":  # matrix is the origin of the next link relative to the end of this link
         link.__is_root = False
         self.__links.append((link, matrix))
         self.__update()
@@ -75,10 +75,10 @@ class Link:
     def get_imu_global(self) -> Matrix:
         return self.__origin * self.__joint * self.__imu
 
-    def set_imu_global(self, imu_global: Matrix):
+    def set_imu_global(self, imu_global: Matrix) -> None:
         self.imu = self.__joint.T * self.__origin.T * imu_global  # transpose can be used instead of inverse because imu.xyz ignored
 
-    def set_joint_from_imu_global(self, imu_global: Matrix):
+    def set_joint_from_imu_global(self, imu_global: Matrix) -> None:
         self.joint = self.__origin.T * imu_global * self.__imu.T  # transpose can be used instead of inverse because joint.xyz ignored
 
     def get_wheel_axis_global(self) -> Matrix:
@@ -105,7 +105,7 @@ class Link:
         figsize: Union[None, Tuple[float, float]] = None,  # see matplotlib.pyplot.figure
         dpi: Union[None, float] = None,  # see matplotlib.pyplot.figure
         hide_tick_labels: bool = True,  # hides the tick labels
-    ):
+    ) -> None:
         links = self.flatten()
 
         # Create figure
@@ -144,7 +144,7 @@ class Link:
         axes.view_init(elev=elev, azim=azim)
 
         # Update plot
-        def update(index: Union[None, int] = None):
+        def update(index: Union[None, int] = None) -> None:
             # Set joints
             if index is not None:
                 for name, joint in frames[index].items():

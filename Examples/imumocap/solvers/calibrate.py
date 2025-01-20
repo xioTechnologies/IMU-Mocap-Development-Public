@@ -9,7 +9,7 @@ def calibrate(
     root: Link,
     imus: dict[str, Matrix],  # {<link name>: <IMU measurment>, ...}
     calibraiton_pose: dict[str, Matrix] = {},  # {<link name>: <joint matrix>, ...}
-):
+) -> None:
     links = {l.name: l for l in root.flatten()}
 
     for link in links.values():

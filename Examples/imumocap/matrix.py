@@ -18,7 +18,7 @@ class Matrix:
         rot_x: float = 0,
         rot_y: float = 0,
         rot_z: float = 0,
-    ):
+    ) -> None:
         if xyz is not None:
             x, y, z = tuple(xyz)
 
