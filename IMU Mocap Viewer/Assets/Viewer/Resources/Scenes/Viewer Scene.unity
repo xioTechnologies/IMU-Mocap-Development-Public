@@ -224,6 +224,7 @@ MonoBehaviour:
   trackingZoomSmoothingEnabled: 1
   trackingZoomSmoothingTime: 0.2
   translationCursor: {fileID: 843806520}
+  notAllowedCursor: {fileID: 1390438021}
   rotationCursor: {fileID: 571625658}
   heightStick: {fileID: 277774847}
 --- !u!114 &158877615
@@ -869,42 +870,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setting: {fileID: 11400000, guid: 17b057e7d6b27ef47bb9294064bec055, type: 2}
---- !u!21 &476314668
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Plot_Stretchable
-  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _PixelScaleFactor: 0.0021745772
-    - _Thickness: 4
-    m_Colors:
-    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
-    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!4 &571625657 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6895417865167895507, guid: c2f52b249d313144cb60c7f334336294, type: 3}
@@ -1492,6 +1457,7 @@ Transform:
   - {fileID: 7148315}
   - {fileID: 571625657}
   - {fileID: 843806521}
+  - {fileID: 1390438020}
   - {fileID: 277774846}
   - {fileID: 2074197841}
   m_Father: {fileID: 1212506395}
@@ -1609,6 +1575,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setting: {fileID: 11400000, guid: f667a978608f97743ba02d814147c7ea, type: 2}
+--- !u!21 &1218575043
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Plot_Stretchable
+  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _PixelScaleFactor: 1
+    - _Thickness: 5
+    m_Colors:
+    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
+    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1267595702
 GameObject:
   m_ObjectHideFlags: 0
@@ -1880,6 +1882,91 @@ MonoBehaviour:
   scale: 20
   margin: 1.5
   text: {fileID: 1273793962}
+--- !u!1001 &1390438019
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1181713537}
+    m_Modifications:
+    - target: {fileID: 1518845245509970256, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: objectSize
+      value: 110
+      objectReference: {fileID: 0}
+    - target: {fileID: 1518845245509970256, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: updateRotation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232469925356890867, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232469925356890867, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232469925356890867, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232469925356890867, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232469925356890867, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232469925356890867, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232469925356890867, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232469925356890867, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232469925356890867, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232469925356890867, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7751404217690194458, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e8435a90321394844b1b92399dbaed34, type: 2}
+    - target: {fileID: 8876710850392170911, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+      propertyPath: m_Name
+      value: Not Allowed Cursor
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+--- !u!4 &1390438020 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7232469925356890867, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+  m_PrefabInstance: {fileID: 1390438019}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1390438021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1518845245509970256, guid: 65632b2fecc5533409164bfd84172441, type: 3}
+  m_PrefabInstance: {fileID: 1390438019}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7fe508075821444c952aab6a7a973b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1476104983
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2994,6 +3081,42 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 50
+--- !u!21 &2012816172
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Plot_Stretchable
+  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _PixelScaleFactor: 1
+    - _Thickness: 4
+    m_Colors:
+    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
+    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &2046400885
 GameObject:
   m_ObjectHideFlags: 0
@@ -3122,42 +3245,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3878192659940181253, guid: fab0c23e15e45794da40a36da1744315, type: 3}
   m_PrefabInstance: {fileID: 5802957170033964548}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &2120577092
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Plot_Stretchable
-  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _PixelScaleFactor: 0.0021745772
-    - _Thickness: 5
-    m_Colors:
-    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
-    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &2120707114
 GameObject:
   m_ObjectHideFlags: 0

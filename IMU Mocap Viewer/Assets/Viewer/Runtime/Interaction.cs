@@ -24,8 +24,10 @@ namespace Viewer.Runtime
         [Header("Tracking")] [SerializeField] private bool tracking = true;
         [SerializeField] private bool trackingZoomSmoothingEnabled;
         [SerializeField, Range(0f, 10f)] private float trackingZoomSmoothingTime = 1f;
-
-        [Header("Cursor")] [SerializeField] private TranslationCursor translationCursor;
+        
+        [Header("Cursor")]
+        [SerializeField] private TranslationCursor translationCursor;
+        [SerializeField] private TranslationCursor notAllowedCursor;
         [SerializeField] private RotationCursor rotationCursor;
         [SerializeField] private HeightStick heightStick;
 
@@ -152,6 +154,7 @@ namespace Viewer.Runtime
             if (Tracking && plotter.IsEmpty == false)
             {
                 if (rightClick) Orbit(viewDelta);
+                else if (click) NotAllowed(point);
                 else Idle();
 
                 ClearSettingsOfUnusedTools();
@@ -306,6 +309,24 @@ namespace Viewer.Runtime
 
             SwitchToTool(Tool.Translate, translationSettings.Value.hitPoint);
         }
+        
+        private void NotAllowed(Vector2 pointer)
+        {
+            Ray ray = mainCamera.ScreenPointToRay(pointer);
+
+            var plane = new Plane(Vector3.up, transform.position);
+
+            if (plane.Raycast(ray, out float intersection) == false || intersection > maxDistance)
+            {
+                SwitchToTool(Tool.None, Vector3.zero);
+                ClearSettingsOfUnusedTools();
+                return;
+            }
+
+            Vector3 newHitPoint = ray.GetPoint(intersection);
+
+            SwitchToTool(Tool.NotAllowed, newHitPoint);
+        }
 
         private void Zoom(int ticks)
         {
@@ -339,6 +360,7 @@ namespace Viewer.Runtime
             HideTool(Tool.Orbit);
             HideTool(Tool.Height);
             HideTool(Tool.Zoom);
+            HideTool(Tool.NotAllowed);
 
             ClearSettingsOfUnusedTools();
         }
@@ -356,7 +378,7 @@ namespace Viewer.Runtime
 
             if (InHeightGroup(active) == false || InHeightGroup(tool) == false && active != tool)
                 HideTool(active);
-
+            
             active = tool;
 
             ShowTool(tool, location);
@@ -380,6 +402,9 @@ namespace Viewer.Runtime
                     heightStick.Hide();
                     break;
                 case Tool.Zoom:
+                    break;
+                case Tool.NotAllowed:
+                    notAllowedCursor.Hide();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(tool), tool, null);
@@ -405,6 +430,9 @@ namespace Viewer.Runtime
                     break;
                 case Tool.Zoom:
                     break;
+                case Tool.NotAllowed:
+                    notAllowedCursor.ShowAt(location);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(tool), tool, null);
             }
@@ -417,6 +445,7 @@ namespace Viewer.Runtime
             Orbit,
             Height,
             Zoom,
+            NotAllowed,
         }
     }
 }

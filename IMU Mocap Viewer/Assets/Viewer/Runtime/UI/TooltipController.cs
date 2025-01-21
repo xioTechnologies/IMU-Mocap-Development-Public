@@ -80,7 +80,6 @@ namespace Viewer.Runtime.UI
         
             if (EventSystem.current.currentSelectedGameObject == tooltipObject.gameObject)
             {
-                Debug.Log($"Keep selected tooltip {tooltipObject.TooltipText}");
                 countdown = showForSeconds;
                 return true;
             }
