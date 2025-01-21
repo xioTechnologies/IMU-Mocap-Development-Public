@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipText: 
   useHoverOffset: 1
-  hoverOffset: {x: -10, y: -20}
+  hoverOffset: {x: 0, y: -20}
 --- !u!1 &7655943830547348390
 GameObject:
   m_ObjectHideFlags: 0
