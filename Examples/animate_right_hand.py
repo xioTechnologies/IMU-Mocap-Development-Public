@@ -1,9 +1,12 @@
+import sys
 import time
 
 import imumocap
 import models
 import numpy as np
 from imumocap import Matrix
+
+dont_block = "dont_block" in sys.argv  # don't block when script run by CI
 
 # Load example model
 model = models.RightHand()
@@ -35,7 +38,7 @@ for angle in [np.sin(x) for x in np.linspace(0, np.pi, 100)]:
     frames.append({l.name: l.joint for l in model.root.flatten()})  # each frame is a dictionary of joint matrices
 
 # Plot
-model.root.plot(frames)
+model.root.plot(frames, block=not dont_block)
 
 # Stream to IMU Mocap Viewer
 connection = imumocap.viewer.Connection()
@@ -48,3 +51,6 @@ while True:
             model.root.dictionary()[name].joint = joint
 
         connection.send(imumocap.viewer.link_to_primitives(model.root))
+
+    if dont_block:
+        break
