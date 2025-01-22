@@ -24,9 +24,6 @@ namespace Viewer.Runtime.Primitives
 
         public void Clear() => boxes?.Clear();
 
-        public void Plot(Vector3 start, Vector3 end, float thickness)
-        {
-            boxes?.AddLine(start, end, thickness, color, color);
-        }
+        public void Plot(Vector3 start, Vector3 end, float thickness) => boxes?.AddLine(start, end, thickness, color, color);
     }
 }

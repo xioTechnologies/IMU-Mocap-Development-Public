@@ -89,8 +89,8 @@ namespace Viewer.Runtime.Widgets
 
         private void PlotFadedLine((Vector3 min, Vector3 minFadeEnd, Vector3 maxFadeEnd, Vector3 max, float intensity) line, Color color, Vector3 split)
         {
-            float lineWidth = lineWidthPixels * PixelScaleUtility.DpiScaleFactor; 
-            
+            float lineWidth = lineWidthPixels * PixelScaleUtility.DpiScaleFactor;
+
             var normal = (line.max._x0z() - line.min._x0z()).normalized;
 
             if (CrossesPlane(line.min._x0z(), line.minFadeEnd._x0z(), split, normal))

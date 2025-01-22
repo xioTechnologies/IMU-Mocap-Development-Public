@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Viewer.Runtime.Global;
 using Viewer.Runtime.Widgets;
 
 namespace Viewer.Runtime
@@ -26,6 +27,7 @@ namespace Viewer.Runtime
         [SerializeField, Range(0f, 10f)] private float trackingZoomSmoothingTime = 1f;
 
         [Header("Cursor")] [SerializeField] private TranslationCursor translationCursor;
+        [SerializeField] private GlobalSetting notAllowedCursor;
         [SerializeField] private RotationCursor rotationCursor;
         [SerializeField] private HeightStick heightStick;
 
@@ -144,18 +146,35 @@ namespace Viewer.Runtime
             if (CheckForReset(overUI))
             {
                 Reset();
-                if (plotter.IsEmpty == false) FitZoomToDataBounds(true);
-                
+                FitZoomToDataBounds(true);
+
                 return;
             }
 
-            if (Tracking && plotter.IsEmpty == false)
+            if (Tracking)
             {
-                if (rightClick) Orbit(viewDelta);
-                else Idle();
+                switch (click, rightClick, control)
+                {
+                    case (false, true, false):
+                        Orbit(viewDelta);
+                        break;
+                    case (false, true, true):
+                        NotAllowed();
+                        break;
+                    case (true, false, _):
+                        if (active != Tool.NotAllowed && viewDelta.magnitude < 0.001f)
+                            Idle();
+                        else
+                            NotAllowed();
+                        break;
+                    default:
+                        Idle();
+                        break;
+                }
 
                 ClearSettingsOfUnusedTools();
                 FitZoomToDataBounds(false);
+
                 return;
             }
 
@@ -184,6 +203,8 @@ namespace Viewer.Runtime
 
         private void FitZoomToDataBounds(bool instantaneous, bool lockToGround = false)
         {
+            if (plotter.IsEmpty == true) return;
+
             var bounds = plotter.Bounds;
 
             target.position = lockToGround ? bounds.center._x0z() : bounds.center;
@@ -193,9 +214,10 @@ namespace Viewer.Runtime
             float newDistanceValue = Mathf.Pow(Mathf.InverseLerp(distanceRange.x, distanceRange.y, requiredDistance), 1f / 3f);
 
             if (instantaneous) distance = newDistanceValue;
-            else distance = trackingZoomSmoothingEnabled
-                ? Mathf.SmoothDamp(distance, newDistanceValue, ref distanceVelocity, trackingZoomSmoothingTime)
-                : newDistanceValue;
+            else
+                distance = trackingZoomSmoothingEnabled
+                    ? Mathf.SmoothDamp(distance, newDistanceValue, ref distanceVelocity, trackingZoomSmoothingTime)
+                    : newDistanceValue;
 
             UpdateCamera();
 
@@ -307,6 +329,11 @@ namespace Viewer.Runtime
             SwitchToTool(Tool.Translate, translationSettings.Value.hitPoint);
         }
 
+        private void NotAllowed()
+        {
+            SwitchToTool(Tool.NotAllowed, Vector3.zero);
+        }
+
         private void Zoom(int ticks)
         {
             distance -= ticks * (1f / numberZoomTicks);
@@ -339,6 +366,7 @@ namespace Viewer.Runtime
             HideTool(Tool.Orbit);
             HideTool(Tool.Height);
             HideTool(Tool.Zoom);
+            HideTool(Tool.NotAllowed);
 
             ClearSettingsOfUnusedTools();
         }
@@ -381,6 +409,9 @@ namespace Viewer.Runtime
                     break;
                 case Tool.Zoom:
                     break;
+                case Tool.NotAllowed:
+                    notAllowedCursor.Value = false;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(tool), tool, null);
             }
@@ -405,6 +436,9 @@ namespace Viewer.Runtime
                     break;
                 case Tool.Zoom:
                     break;
+                case Tool.NotAllowed:
+                    notAllowedCursor.Value = true;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(tool), tool, null);
             }
@@ -417,6 +451,7 @@ namespace Viewer.Runtime
             Orbit,
             Height,
             Zoom,
+            NotAllowed,
         }
     }
 }

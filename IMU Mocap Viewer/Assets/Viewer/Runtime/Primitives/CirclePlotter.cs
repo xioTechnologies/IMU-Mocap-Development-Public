@@ -24,9 +24,6 @@ namespace Viewer.Runtime.Primitives
 
         public void Clear() => circles?.Clear();
 
-        public void Plot(Vector3 point, Vector3 axis, float radius, float thickness)
-        {
-            circles?.AddBox(point, Quaternion.LookRotation(axis), radius * 2f, thickness, color, color);
-        }
+        public void Plot(Vector3 point, Vector3 axis, float radius, float thickness) => circles?.AddBox(point, Quaternion.LookRotation(axis), radius * 2f, thickness, color, color);
     }
 }

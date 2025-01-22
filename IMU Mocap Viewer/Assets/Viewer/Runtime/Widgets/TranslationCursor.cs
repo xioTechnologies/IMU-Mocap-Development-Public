@@ -16,7 +16,6 @@ namespace Viewer.Runtime.Widgets
         public void ShowAt(Vector3 getPoint)
         {
             transform.position = getPoint;
-
             gameObject.SetActive(true);
         }
     }
