@@ -27,7 +27,7 @@ for angle in [np.sin(x) for x in np.linspace(0, np.pi, 100)]:
     model.right_hand.joint = Matrix(rot_x=angle * 45)
     model.right_forearm.joint = Matrix(rot_y=angle * -90, rot_z=angle * 60)
     model.right_upper_arm.joint = Matrix(rot_x=angle * -10, rot_z=angle * 60)
-    model.right_shoulder.joint = Matrix(rot_x=angle * -10)
+    model.right_shoulder.joint = Matrix(rot_x=angle * 10)
 
     model.upper_torso.joint = Matrix(rot_y=angle * 15)
     model.lower_torso.joint = Matrix(rot_y=angle * 15)
