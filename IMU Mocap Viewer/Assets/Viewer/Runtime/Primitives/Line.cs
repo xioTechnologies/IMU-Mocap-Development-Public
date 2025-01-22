@@ -10,7 +10,7 @@ namespace Viewer.Runtime.Primitives
 
         protected override void UpdateTransform()
         {
-            if (!enabled) return;
+            if (enabled == false) return;
 
             Vector3 direction = endPoint - startPoint;
             float length = direction.magnitude;

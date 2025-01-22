@@ -19,7 +19,7 @@ namespace Viewer.Runtime
 
         private Task<UdpReceiveResult> receiveTask;
 
-        public bool Paused { get; set; } 
+        public bool Paused { get; set; }
 
         private void Start()
         {
@@ -74,8 +74,8 @@ namespace Viewer.Runtime
 
             void ProcessPacket(UdpReceiveResult result)
             {
-                if (Paused) return; 
-                
+                if (Paused) return;
+
                 PlotObject[] objects = JsonConvert.DeserializeObject<PlotObject[]>(Encoding.ASCII.GetString(result.Buffer));
 
                 plotter.Clear();

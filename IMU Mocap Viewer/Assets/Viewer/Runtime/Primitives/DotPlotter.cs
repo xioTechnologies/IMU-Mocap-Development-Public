@@ -24,9 +24,6 @@ namespace Viewer.Runtime.Primitives
 
         public void Clear() => dots?.Clear();
 
-        public void Plot(Vector3 point, float radius)
-        {
-            dots?.AddBox(point, Quaternion.identity, 1f, radius, color, color);
-        }
+        public void Plot(Vector3 point, float radius) => dots?.AddBox(point, Quaternion.identity, 1f, radius, color, color);
     }
 }

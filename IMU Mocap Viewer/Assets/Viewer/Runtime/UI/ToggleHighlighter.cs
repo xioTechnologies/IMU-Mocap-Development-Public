@@ -25,7 +25,7 @@ namespace Viewer.Runtime.UI
             colors = selectable.colors;
 
             toggle.onValueChanged.AddListener(OnToggleValueChanged);
-            
+
             OnToggleValueChanged(toggle.isOn);
         }
 

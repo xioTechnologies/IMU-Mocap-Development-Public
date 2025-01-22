@@ -25,9 +25,8 @@ namespace Viewer.Runtime
         [Header("Tracking")] [SerializeField] private bool tracking = true;
         [SerializeField] private bool trackingZoomSmoothingEnabled;
         [SerializeField, Range(0f, 10f)] private float trackingZoomSmoothingTime = 1f;
-        
-        [Header("Cursor")]
-        [SerializeField] private TranslationCursor translationCursor;
+
+        [Header("Cursor")] [SerializeField] private TranslationCursor translationCursor;
         [SerializeField] private GlobalSetting notAllowedCursor;
         [SerializeField] private RotationCursor rotationCursor;
         [SerializeField] private HeightStick heightStick;
@@ -148,7 +147,7 @@ namespace Viewer.Runtime
             {
                 Reset();
                 FitZoomToDataBounds(true);
-                
+
                 return;
             }
 
@@ -165,7 +164,7 @@ namespace Viewer.Runtime
                     case (true, false, _):
                         if (active != Tool.NotAllowed && viewDelta.magnitude < 0.001f)
                             Idle();
-                        else 
+                        else
                             NotAllowed();
                         break;
                     default:
@@ -175,7 +174,7 @@ namespace Viewer.Runtime
 
                 ClearSettingsOfUnusedTools();
                 FitZoomToDataBounds(false);
-                
+
                 return;
             }
 
@@ -205,7 +204,7 @@ namespace Viewer.Runtime
         private void FitZoomToDataBounds(bool instantaneous, bool lockToGround = false)
         {
             if (plotter.IsEmpty == true) return;
-                
+
             var bounds = plotter.Bounds;
 
             target.position = lockToGround ? bounds.center._x0z() : bounds.center;
@@ -215,9 +214,10 @@ namespace Viewer.Runtime
             float newDistanceValue = Mathf.Pow(Mathf.InverseLerp(distanceRange.x, distanceRange.y, requiredDistance), 1f / 3f);
 
             if (instantaneous) distance = newDistanceValue;
-            else distance = trackingZoomSmoothingEnabled
-                ? Mathf.SmoothDamp(distance, newDistanceValue, ref distanceVelocity, trackingZoomSmoothingTime)
-                : newDistanceValue;
+            else
+                distance = trackingZoomSmoothingEnabled
+                    ? Mathf.SmoothDamp(distance, newDistanceValue, ref distanceVelocity, trackingZoomSmoothingTime)
+                    : newDistanceValue;
 
             UpdateCamera();
 
@@ -384,7 +384,7 @@ namespace Viewer.Runtime
 
             if (InHeightGroup(active) == false || InHeightGroup(tool) == false && active != tool)
                 HideTool(active);
-            
+
             active = tool;
 
             ShowTool(tool, location);
