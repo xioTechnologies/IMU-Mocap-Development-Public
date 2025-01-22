@@ -26,16 +26,14 @@ namespace Viewer.Editor
         {
             string inputPath = $"Assets/Viewer/Resources/UI/Icons/{icon}.png";
             string outputPath = $"Assets/Viewer/Resources/UI/Icons/{icon}.exr";
-
-            // Load the input texture
+            
             Texture2D inputTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(inputPath);
             if (inputTexture == null)
             {
                 Debug.LogError("Input texture not found at " + inputPath);
                 return;
             }
-
-            // Ensure the input texture is readable
+            
             string assetPath = AssetDatabase.GetAssetPath(inputTexture);
             var importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
             if (importer != null && !importer.isReadable)
@@ -46,8 +44,7 @@ namespace Viewer.Editor
 
             int inputWidth = inputTexture.width;
             int inputHeight = inputTexture.height;
-
-            // Create NativeArrays for pixel data and distance field at original resolution
+            
             Color[] inputPixels = inputTexture.GetPixels();
             NativeArray<float> binaryImage = new NativeArray<float>(inputWidth * inputHeight, Allocator.TempJob);
             NativeArray<float> fullResDistanceField = new NativeArray<float>(inputWidth * inputHeight, Allocator.TempJob);
@@ -84,21 +81,21 @@ namespace Viewer.Editor
                 {
                     float u = x / (float)(outputResolution - 1) * (inputWidth - 1);
                     float v = y / (float)(outputResolution - 1) * (inputHeight - 1);
-                    
+
                     // Bilinear sampling of the distance field
                     int x1 = Mathf.FloorToInt(u);
                     int y1 = Mathf.FloorToInt(v);
                     int x2 = Mathf.Min(x1 + 1, inputWidth - 1);
                     int y2 = Mathf.Min(y1 + 1, inputHeight - 1);
-                    
+
                     float fx = u - x1;
                     float fy = v - y1;
-                    
+
                     float d11 = fullResDistanceField[y1 * inputWidth + x1];
                     float d12 = fullResDistanceField[y2 * inputWidth + x1];
                     float d21 = fullResDistanceField[y1 * inputWidth + x2];
                     float d22 = fullResDistanceField[y2 * inputWidth + x2];
-                    
+
                     float distance = Mathf.Lerp(
                         Mathf.Lerp(d11, d12, fy),
                         Mathf.Lerp(d21, d22, fy),
@@ -110,7 +107,7 @@ namespace Viewer.Editor
                     Color c12 = inputPixels[y2 * inputWidth + x1];
                     Color c21 = inputPixels[y1 * inputWidth + x2];
                     Color c22 = inputPixels[y2 * inputWidth + x2];
-                    
+
                     float originalValue = Mathf.Lerp(
                         Mathf.Lerp(c11.grayscale, c12.grayscale, fy),
                         Mathf.Lerp(c21.grayscale, c22.grayscale, fy),
@@ -119,7 +116,7 @@ namespace Viewer.Editor
 
                     // Normalize distance and pack into output
                     float normalizedDistance = 1f - Mathf.Clamp01(distance / maxDistance);
-                    outputTexture.SetPixel(x, y, new Color(normalizedDistance, originalValue, 0, 1));
+                    outputTexture.SetPixel(x, y, new Color(distance / 10f, originalValue, 0, 1));
                 }
             }
 

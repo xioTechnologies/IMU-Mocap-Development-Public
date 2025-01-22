@@ -779,7 +779,4 @@ namespace Viewer.Editor
             public int GetHashCode(Vector3 v) => v.GetHashCode();
         }
     }
-
-
-
 }
