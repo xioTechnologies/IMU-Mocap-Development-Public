@@ -19,6 +19,7 @@ namespace Viewer.Editor
             GenerateSDF("Label", resolution);
             GenerateSDF("Line", resolution);
             GenerateSDF("Tracking", resolution);
+            GenerateSDF("Not allowed", resolution);
         }
 
         private static void GenerateSDF(string icon, int outputResolution)

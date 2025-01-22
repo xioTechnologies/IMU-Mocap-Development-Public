@@ -78,12 +78,6 @@ namespace Viewer.Runtime.UI
                 return false;
             }
         
-            if (EventSystem.current.currentSelectedGameObject == tooltipObject.gameObject)
-            {
-                countdown = showForSeconds;
-                return true;
-            }
-        
             countdown -= Time.deltaTime;
         
             isShowingTooltip = countdown > 0;
