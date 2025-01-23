@@ -12,7 +12,7 @@ namespace Viewer.Editor
         [MenuItem("Viewer/Generate Icon SDF (s)")]
         public static void GenerateAll()
         {
-            const int resolution = 64;
+            const int resolution = 128;
             GenerateSDF("Axes", resolution);
             GenerateSDF("Dot", resolution);
             GenerateSDF("Grid", resolution);
@@ -47,7 +47,7 @@ namespace Viewer.Editor
             
             Color[] inputPixels = inputTexture.GetPixels();
             NativeArray<float> binaryImage = new NativeArray<float>(inputWidth * inputHeight, Allocator.TempJob);
-            NativeArray<float> fullResDistanceField = new NativeArray<float>(inputWidth * inputHeight, Allocator.TempJob);
+            NativeArray<float> distanceField = new NativeArray<float>(outputResolution * outputResolution, Allocator.TempJob);
 
             for (int i = 0; i < inputPixels.Length; i++)
             {
@@ -59,44 +59,24 @@ namespace Viewer.Editor
             DistanceFieldJob distanceFieldJob = new DistanceFieldJob
             {
                 BinaryImage = binaryImage,
-                DistanceField = fullResDistanceField,
-                Width = inputWidth,
-                Height = inputHeight,
+                DistanceField = distanceField,
+                InputWidth = inputWidth,
+                InputHeight = inputHeight,
+                OutputWidth = outputResolution,
+                OutputHeight = outputResolution,
                 MaxDistance = maxDistance
             };
 
-            JobHandle handle = distanceFieldJob.Schedule(inputWidth * inputHeight, 64);
+            JobHandle handle = distanceFieldJob.Schedule(outputResolution * outputResolution, 64);
             handle.Complete();
             
             Texture2D outputTexture = new Texture2D(outputResolution, outputResolution, TextureFormat.RGFloat, false);
             
-            for (int y = 0; y < outputResolution; y++)
+            for (int i = 0; i < distanceField.Length; i++)
             {
-                for (int x = 0; x < outputResolution; x++)
-                {
-                    float u = x / (float)(outputResolution - 1) * (inputWidth - 1);
-                    float v = y / (float)(outputResolution - 1) * (inputHeight - 1);
-
-                    int x1 = Mathf.FloorToInt(u);
-                    int y1 = Mathf.FloorToInt(v);
-                    int x2 = Mathf.Min(x1 + 1, inputWidth - 1);
-                    int y2 = Mathf.Min(y1 + 1, inputHeight - 1);
-
-                    float fx = u - x1;
-                    float fy = v - y1;
-
-                    float d11 = fullResDistanceField[y1 * inputWidth + x1];
-                    float d12 = fullResDistanceField[y2 * inputWidth + x1];
-                    float d21 = fullResDistanceField[y1 * inputWidth + x2];
-                    float d22 = fullResDistanceField[y2 * inputWidth + x2];
-
-                    float distance = Mathf.Lerp(
-                        Mathf.Lerp(d11, d12, fy),
-                        Mathf.Lerp(d21, d22, fy),
-                        fx
-                    );
-                    outputTexture.SetPixel(x, y, new Color(distance / 10f, 0, 0, 1));
-                }
+                int x = i % outputResolution;
+                int y = i / outputResolution;
+                outputTexture.SetPixel(x, y, new Color(distanceField[i] / 10f, 0, 0, 1));
             }
 
             outputTexture.Apply();
@@ -106,9 +86,9 @@ namespace Viewer.Editor
             AssetDatabase.Refresh();
             
             binaryImage.Dispose();
-            fullResDistanceField.Dispose();
+            distanceField.Dispose();
 
-            Debug.Log($"SDF generated at {outputResolution}x{outputResolution} (from {inputWidth}x{inputHeight}) and saved to {outputPath}");
+            Debug.Log($"SDF generated at {outputResolution}x{outputResolution} from {inputWidth}x{inputHeight} source and saved to {outputPath}");
         }
 
         [BurstCompile]
@@ -116,22 +96,32 @@ namespace Viewer.Editor
         {
             [ReadOnly] public NativeArray<float> BinaryImage;
             public NativeArray<float> DistanceField;
-            public int Width;
-            public int Height;
+            public int InputWidth;
+            public int InputHeight;
+            public int OutputWidth;
+            public int OutputHeight;
             public float MaxDistance;
 
             public void Execute(int index)
             {
-                int x = index % Width;
-                int y = index / Width;
-
+                int outX = index % OutputWidth;
+                int outY = index / OutputWidth;
+                
+                // Map output coordinates to input texture space
+                float u = outX / (float)(OutputWidth - 1) * (InputWidth - 1);
+                float v = outY / (float)(OutputHeight - 1) * (InputHeight - 1);
+                
                 float minDistance = MaxDistance;
-                bool isInside = BinaryImage[index] == 0;
 
-                int startX = Mathf.Max(0, x - (int)MaxDistance);
-                int endX = Mathf.Min(Width, x + (int)MaxDistance);
-                int startY = Mathf.Max(0, y - (int)MaxDistance);
-                int endY = Mathf.Min(Height, y + (int)MaxDistance);
+                int startX = Mathf.Max(0, (int)(u - MaxDistance));
+                int endX = Mathf.Min(InputWidth, (int)(u + MaxDistance + 1));
+                int startY = Mathf.Max(0, (int)(v - MaxDistance));
+                int endY = Mathf.Min(InputHeight, (int)(v + MaxDistance + 1));
+
+                // Check if we're inside a shape by sampling the nearest input pixel
+                int nearestX = Mathf.RoundToInt(u);
+                int nearestY = Mathf.RoundToInt(v);
+                bool isInside = BinaryImage[nearestY * InputWidth + nearestX] == 0;
 
                 if (isInside)
                 {
@@ -139,23 +129,22 @@ namespace Viewer.Editor
                     return;
                 }
 
-                for (int j = startY; j < endY; j++)
+                for (int y = startY; y < endY; y++)
                 {
-                    for (int i = startX; i < endX; i++)
+                    for (int x = startX; x < endX; x++)
                     {
-                        int neighborIndex = j * Width + i;
-                        bool neighborInside = BinaryImage[neighborIndex] == 0;
+                        int inputIndex = y * InputWidth + x;
+                        bool neighborInside = BinaryImage[inputIndex] == 0;
 
-                        if (neighborInside)
-                        {
-                            float dx = x - i;
-                            float dy = y - j;
-                            float distance = Mathf.Sqrt(dx * dx + dy * dy);
-                            minDistance = Mathf.Min(minDistance, distance);
+                        if (neighborInside == false) continue;
+                        
+                        float dx = u - x;
+                        float dy = v - y;
+                        float distance = Mathf.Sqrt(dx * dx + dy * dy);
+                        minDistance = Mathf.Min(minDistance, distance);
 
-                            if (minDistance <= 1e-5f)
-                                break;
-                        }
+                        if (minDistance <= 1e-5f)
+                            break;
                     }
                 }
 
