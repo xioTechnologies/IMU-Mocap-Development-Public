@@ -274,42 +274,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paused: {fileID: 11400000, guid: a16c68c688604194cabac6c1a5a9e2ae, type: 2}
---- !u!21 &168444021
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Plot_Stretchable
-  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _PixelScaleFactor: 1
-    - _Thickness: 5
-    m_Colors:
-    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
-    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1001 &277774845
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -941,7 +905,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &468391263
 MonoBehaviour:
@@ -2161,7 +2125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 22e84baa085519f43868d98a5a8788da, type: 2}
-  m_Color: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 0.49019608}
+  m_Color: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 0.20784314}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2200,42 +2164,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -944628639613478452, guid: 2de721e259487624881745db15080062, type: 3}
   m_ActionId: 669e77c0-0eee-4e1c-8df5-a30386cb6879
---- !u!21 &1593926535
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Plot_Stretchable
-  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _PixelScaleFactor: 1
-    - _Thickness: 4
-    m_Colors:
-    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
-    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!114 &1597881998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2877,6 +2805,42 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 905783338990321133, guid: 42e7cdd17681b254fa03cf2f77a7e937, type: 3}
   m_PrefabInstance: {fileID: 1766517545}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1822504780
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Plot_Stretchable
+  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _PixelScaleFactor: 0.0021745772
+    - _Thickness: 4
+    m_Colors:
+    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
+    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 0.11372549}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1839031087
 GameObject:
   m_ObjectHideFlags: 0
@@ -3013,6 +2977,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839031087}
   m_CullTransparentMesh: 1
+--- !u!21 &1961074725
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Plot_Stretchable
+  m_Shader: {fileID: 4800000, guid: 0fae4fdfa41b46a8a8912e43d3a881b2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _PixelScaleFactor: 0.0021745772
+    - _Thickness: 5
+    m_Colors:
+    - _FarColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
+    - _NearColor: {r: 0.8941177, g: 0.8941177, b: 0.8941177, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1967537426
 GameObject:
   m_ObjectHideFlags: 0
@@ -3056,8 +3056,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 510.5, y: -0}
-  m_SizeDelta: {x: 1021, y: 0}
+  m_AnchoredPosition: {x: 440, y: -0}
+  m_SizeDelta: {x: 880, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1967537429
 CanvasRenderer:
