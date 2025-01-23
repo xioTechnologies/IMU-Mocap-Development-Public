@@ -45,11 +45,6 @@ class Imu:
         if not responses:
             raise Exception(f"No response. {command} sent to {self.__connection.get_info().to_string()}")
 
-        response = ximu3.CommandMessage.parse(responses[0])
-
-        if response.error:
-            raise Exception(f"{response.error}. {command} sent to {self.__connection.get_info().to_string()}")
-
         return json.loads(responses[0])[key]
 
     def __quaternion_callback(self, message: ximu3.QuaternionMessage) -> None:
