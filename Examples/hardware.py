@@ -1,4 +1,3 @@
-import json
 from typing import List
 
 import colorama
@@ -45,7 +44,12 @@ class Imu:
         if not responses:
             raise Exception(f"No response. {command} sent to {self.__connection.get_info().to_string()}")
 
-        return json.loads(responses[0])[key]
+        response = ximu3.CommandMessage.parse(responses[0])
+
+        if response.error:
+            raise Exception(f"{response.error}. {command} sent to {self.__connection.get_info().to_string()}")
+
+        return response.value
 
     def __quaternion_callback(self, message: ximu3.QuaternionMessage) -> None:
         self.__quaternion = np.array([message.w, message.x, message.y, message.z])
