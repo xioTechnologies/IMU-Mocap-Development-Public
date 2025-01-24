@@ -13,11 +13,12 @@ ignored = [
     model.right_toe.name,
 ]  # there are no IMUs on the toes
 
-imus = hardware.setup([l.name for l in model.root.flatten() if l.name not in ignored])
+imus = hardware.setup([l.name for l in model.root.flatten() if l.name not in ignored] )
 
 # Stream to IMU Mocap Viewer
 connection = imumocap.viewer.Connection()
 
+north = imumocap.solvers.North()
 
 def calibrate() -> None:
     print("Calibrating in...")
@@ -27,6 +28,8 @@ def calibrate() -> None:
 
         time.sleep(0.5)
 
+    north.set(imus[model.root.name].matrix)
+    
     imumocap.solvers.calibrate(model.root, {n: i.matrix for n, i in imus.items()})
 
     print("Calibrated")
@@ -38,8 +41,10 @@ while True:
     if any([i.button_pressed for i in imus.values()]):
         calibrate()
 
-    for name, imu in imus.items():
-        model.root.dictionary()[name].set_joint_from_imu_global(imu.matrix)
+    imu_globals = north.apply({n: i.matrix for n, i in imus.items()})
+
+    for name, matrix in imu_globals.items():
+        model.root.dictionary()[name].set_joint_from_imu_global(matrix)
 
     imumocap.solvers.floor(model.root)
 
