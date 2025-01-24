@@ -1,5 +1,7 @@
 from typing import Dict
 
+import numpy as np
+
 from ..matrix import Matrix
 
 
@@ -8,41 +10,31 @@ class North:
         self.__matrix = Matrix()
 
     def set(self, imu_global: Matrix) -> None:
-        pass
+        self.__matrix = get_heading(imu_global, True)
 
     def apply(self, imu_globals: Dict[str, Matrix]) -> Dict[str, Matrix]:  # {<link name>: <IMU measurment>, ...}
-        return {n: m * self.__matrix for n, m in imu_globals.items()}
+        return {n: self.__matrix * m for n, m in imu_globals.items()}
 
 
-#
-# # import numpy as np
+@staticmethod
+def project_to_ground(vector: np.ndarray) -> np.ndarray:
+    projected = np.array([vector[0, 0], 0, vector[0, 2]])
+    return projected / np.linalg.norm(projected)
 
-# from ..link import Link
-# from ..matrix import Matrix
+@staticmethod
+def calculate_heading_matrix(projected_vector: np.ndarray) -> Matrix:
+    angle = np.arctan2(projected_vector[0], projected_vector[2])
+    return Matrix(rot_y=np.degrees(angle))
 
-# # Sets the height of the root so that the lowest part of the model is in
-# # contact with the floor.
+@staticmethod
+def get_heading(matrix: Matrix, upright: bool) -> Matrix:
+    
+    axis_index = 2 if upright else 0
+    
+    forward_vector = matrix.rotation[:, axis_index].flatten()
 
+    ground_vector = project_to_ground(forward_vector)
+    
+    heading_matrix = calculate_heading_matrix(ground_vector)
 
-# def floor(root: Link) -> None:
-#     links = root.flatten()
-
-#     joints_z = np.array([l.get_joint_global().z for l in links])
-
-#     ends_z = np.array([l.get_end_global().z for l in links])
-
-#     wheels_z = np.array([_wheel_lowest_point(l)[2] for l in links if any(l.get_wheel_axis_global().xyz != 0)])
-
-#     min_z = np.min(np.concatenate((joints_z, ends_z, wheels_z)))
-
-#     root.joint = Matrix(x=root.joint.x, y=root.joint.y, z=-min_z, rotation=root.joint.rotation)
-
-
-# def _wheel_lowest_point(link: Link) -> np.ndarray:
-#     axis = link.get_wheel_axis_global().xyz
-
-#     lowest_spoke = np.cross(axis, np.cross(axis, np.array([0, 0, 1])))
-
-#     lowest_spoke /= np.linalg.norm(lowest_spoke)
-
-#     return link.get_joint_global().xyz + (link.length * lowest_spoke)
+    return heading_matrix
