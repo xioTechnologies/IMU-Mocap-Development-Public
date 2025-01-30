@@ -25,16 +25,23 @@ namespace Viewer.Runtime
         [Header("Tracking")] [SerializeField] private bool tracking = true;
         [SerializeField] private bool trackingZoomSmoothingEnabled;
         [SerializeField, Range(0f, 10f)] private float trackingZoomSmoothingTime = 1f;
+        [SerializeField] private bool trackingPositionSmoothingEnabled;
+        [SerializeField, Range(0f, 10f)] private float trackingPositionSmoothingTime = 1f;
 
-        [Header("Cursor")] [SerializeField] private TranslationCursor translationCursor;
+        [Header("Widgets")] 
+        [SerializeField] private TranslationCursor translationCursor;
         [SerializeField] private GlobalSetting notAllowedCursor;
         [SerializeField] private RotationCursor rotationCursor;
         [SerializeField] private HeightStick heightStick;
+        [SerializeField] private BoundingBox boundingBox;
 
         private Tool active = Tool.None;
 
         private float distance = 0.1f;
         private float distanceVelocity;
+        private Vector3 positionVelocity;
+        private Vector3 velocityCenter;
+        private Vector3 velocitySize;
 
         private Camera mainCamera;
 
@@ -47,6 +54,10 @@ namespace Viewer.Runtime
         private (Vector3 origin, Vector3 hitPoint)? altitudeSettings;
 
         private ViewerInputs viewerInputs;
+
+        private Bounds bounds;
+        private Bounds smoothBounds;
+        private bool hasBounds = false;
 
         public bool Tracking
         {
@@ -74,7 +85,10 @@ namespace Viewer.Runtime
 
             target.position = Vector3.zero;
             distanceVelocity = 0;
-
+            positionVelocity = Vector3.zero;
+            bounds = new Bounds();
+            hasBounds = false;
+            
             ClearToolStates();
 
             UpdateCamera();
@@ -175,6 +189,16 @@ namespace Viewer.Runtime
                 ClearSettingsOfUnusedTools();
                 FitZoomToDataBounds(false);
 
+                if (hasBounds) 
+                { 
+                    boundingBox.Bounds = smoothBounds;
+                    boundingBox.Show();
+                }
+                else 
+                { 
+                    boundingBox.Hide();
+                }
+
                 return;
             }
 
@@ -199,25 +223,39 @@ namespace Viewer.Runtime
 
             ClearSettingsOfUnusedTools();
             UpdateCamera();
+            
+            boundingBox.Hide();
         }
-
-        private void FitZoomToDataBounds(bool instantaneous, bool lockToGround = false)
+        
+        private void FitZoomToDataBounds(bool lockToGround = false)
         {
-            if (plotter.IsEmpty == true) return;
+            if (plotter.IsEmpty == false)
+            {
+                if (hasBounds == false)
+                {
+                    bounds = plotter.Bounds;
+                    smoothBounds = bounds;
+                }
+                else 
+                    bounds.Encapsulate(plotter.Bounds);
+            
+                hasBounds = true;
+            }
+            
+            if (hasBounds == false) return;
+            
+            smoothBounds = smoothBounds.SmoothDamp(bounds, ref velocityCenter, ref velocitySize, trackingPositionSmoothingTime);
 
-            var bounds = plotter.Bounds;
+            var position = lockToGround ? smoothBounds.center._x0z() : smoothBounds.center;
+            
+            target.position = position;
 
-            target.position = lockToGround ? bounds.center._x0z() : bounds.center;
             UpdateCamera();
 
-            float requiredDistance = PixelScaleUtility.CalculateRequiredDistance(mainCamera, bounds, lockToGround, margin);
+            float requiredDistance = PixelScaleUtility.CalculateRequiredDistance(mainCamera, smoothBounds, margin);
             float newDistanceValue = Mathf.Pow(Mathf.InverseLerp(distanceRange.x, distanceRange.y, requiredDistance), 1f / 3f);
 
-            if (instantaneous) distance = newDistanceValue;
-            else
-                distance = trackingZoomSmoothingEnabled
-                    ? Mathf.SmoothDamp(distance, newDistanceValue, ref distanceVelocity, trackingZoomSmoothingTime)
-                    : newDistanceValue;
+            distance = newDistanceValue;
 
             UpdateCamera();
 
