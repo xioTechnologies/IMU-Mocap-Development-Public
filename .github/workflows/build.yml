@@ -71,15 +71,8 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.TOKEN }}
         run: python -m twine upload --verbose --repository pypi dist/* --skip-existing
 
-  imu-mocap-viewer:
-    runs-on: ${{ matrix.target[0] }}
-    strategy:
-      fail-fast: false
-      matrix:
-        target: # [ os, name, platform  ]
-          - [ macos-latest, macOS, StandaloneOSX ]
-          - [ windows-latest, Windows, StandaloneWindows64 ]
-          - [ ubuntu-latest, ubuntu, StandaloneLinux64 ]
+  imu-mocap-viewer-macos:
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -87,7 +80,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "IMU Mocap Viewer/Library"
-          key: Library-${{ matrix.target[0] }}
+          key: Library-macOS
           restore-keys: Library-
 
       - uses: game-ci/unity-builder@v4
@@ -97,26 +90,12 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           projectPath: "./IMU Mocap Viewer"
-          targetPlatform: ${{ matrix.target[2] }}
+          targetPlatform: StandaloneOSX
           allowDirtyBuild: true
           buildsPath: "build/"
           buildName: 'IMU Mocap Viewer'
           versioning: Custom
           version: '0.0.0'
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: IMU-Mocap-Viewer-${{ matrix.target[1] }}
-          path: |
-            build/${{ matrix.target[2] }}
-            !build/${{ matrix.target[2] }}/*DoNotShip
-
-  macos-dmg:
-    runs-on: macos-latest
-    needs: [create-release, imu-mocap-viewer]
-
-    steps:
-      - uses: actions/checkout@v4
 
       - name: Install certificate # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development#add-a-step-to-your-workflow
         env:
@@ -138,17 +117,12 @@ jobs:
 
           # import certificate to keychain
           security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security list-keychain -d user -s $KEYCHAIN_PATH        
-
-      - name: Download from artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: IMU-Mocap-Viewer-macOS
+          security list-keychain -d user -s $KEYCHAIN_PATH             
 
       - name: Sign and notarize
         run: |
-          chmod -R a+xr "IMU Mocap Viewer.app"
-          codesign --deep --force --options runtime --timestamp --sign 29X883CFTW "IMU Mocap Viewer.app"
+          chmod -R a+xr "build/StandaloneOSX/IMU Mocap Viewer.app"
+          codesign --deep --force --options runtime --timestamp --sign 29X883CFTW "build/StandaloneOSX/IMU Mocap Viewer.app"
           brew install create-dmg
           create-dmg \
           --volname "IMU-Mocap-Viewer" \
@@ -160,7 +134,7 @@ jobs:
           --hide-extension "IMU Mocap Viewer.app" \
           --app-drop-link 450 125 \
           "IMU-Mocap-Viewer.dmg" \
-          "IMU Mocap Viewer.app"
+          "build/StandaloneOSX/IMU Mocap Viewer.app"
           xcrun notarytool submit "IMU-Mocap-Viewer.dmg" --team-id 29X883CFTW --apple-id ${{ secrets.AC_USERNAME }} --password ${{ secrets.AC_PASSWORD }} --wait
           xcrun stapler staple "IMU-Mocap-Viewer.dmg"       
 
@@ -175,18 +149,31 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{ github.ref_name }} IMU-Mocap-Viewer.dmg
 
-  windows-installer:
+  imu-mocap-viewer-windows:
     runs-on: windows-latest
-    needs: [create-release, imu-mocap-viewer]
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download from artifacts
-        uses: actions/download-artifact@v4
+      - uses: actions/cache@v3
         with:
-          name: IMU-Mocap-Viewer-Windows
-          path: files
+          path: "IMU Mocap Viewer/Library"
+          key: Library-Windows
+          restore-keys: Library-
+
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: "./IMU Mocap Viewer"
+          targetPlatform: StandaloneWindows64
+          allowDirtyBuild: true
+          buildsPath: "build/"
+          buildName: 'IMU Mocap Viewer'
+          versioning: Custom
+          version: '0.0.0'
 
       # https://docs.digicert.com/zh/digicert-keylocker/ci-cd-integrations/plugins/github-custom-action-for-keypair-signing.html
       - name: Setup Certificate
@@ -220,6 +207,9 @@ jobs:
           smctl windows certsync
         shell: cmd
 
+      - name: Remove DoNotShip
+        run: rm -rf build/StandaloneWindows64/*DoNotShip
+
       - name: Create installer
         run: |
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "/Ssigntool=signtool.exe sign /sha1 ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} /tr http://timestamp.digicert.com /td SHA256 /fd SHA256 $p" WindowsInstaller.iss
@@ -234,3 +224,43 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{ github.ref_name }} Output/IMU-Mocap-Viewer-Setup.exe
+
+  imu-mocap-viewer-ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v3
+        with:
+          path: "IMU Mocap Viewer/Library"
+          key: Library-Ubuntu
+          restore-keys: Library-
+
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: "./IMU Mocap Viewer"
+          targetPlatform: StandaloneLinux64
+          allowDirtyBuild: true
+          buildsPath: "build/"
+          buildName: 'IMU Mocap Viewer'
+          versioning: Custom
+          version: '0.0.0'
+
+      - name: Remove DoNotShip
+        run: rm -rf build/StandaloneLinux64/*DoNotShip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: IMU-Mocap-Viewer-Ubuntu
+          path: build/StandaloneLinux64
+
+      - if: startsWith(github.ref, 'refs/tags/v')
+        name: Upload to release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ github.ref_name }} build/StandaloneLinux64
