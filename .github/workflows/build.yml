@@ -91,7 +91,7 @@ jobs:
 
   macos-dmg:
     runs-on: macos-latest
-    needs: imu-mocap-viewer
+    needs: [create-release, imu-mocap-viewer]
 
     steps:
       - uses: actions/checkout@v4
@@ -121,9 +121,15 @@ jobs:
           name: IMU-Mocap-Viewer.dmg
           path: IMU-Mocap-Viewer.dmg
 
+      - if: startsWith(github.ref, 'refs/tags/v')
+        name: Upload to release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ github.ref_name }} IMU-Mocap-Viewer.dmg
+
   windows-installer:
     runs-on: windows-latest
-    needs: imu-mocap-viewer
+    needs: [create-release, imu-mocap-viewer]
 
     steps:
       - uses: actions/checkout@v4
@@ -142,3 +148,9 @@ jobs:
         with:
           name: IMU-Mocap-Viewer-Setup.exe
           path: Output/IMU-Mocap-Viewer-Setup.exe
+
+      - if: startsWith(github.ref, 'refs/tags/v')
+        name: Upload to release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ github.ref_name }} Output/IMU-Mocap-Viewer-Setup.exe
