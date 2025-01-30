@@ -208,7 +208,7 @@ jobs:
         shell: cmd
 
       - name: Remove DoNotShip
-        run: rm -rf build/StandaloneWindows64/*DoNotShip
+        run: del /S build/StandaloneWindows64/*DoNotShip/*
 
       - name: Create installer
         run: |
