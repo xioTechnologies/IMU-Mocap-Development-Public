@@ -125,6 +125,7 @@ jobs:
 
       - name: Sign and notarize
         run: |
+          chmod -R a+xr "IMU Mocap Viewer.app"
           codesign --deep --force --options runtime --timestamp --sign 29X883CFTW "IMU Mocap Viewer.app"
           brew install create-dmg
           create-dmg \
