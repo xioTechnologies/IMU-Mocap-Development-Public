@@ -8,6 +8,19 @@ on:
     branches: [ main ]
 
 jobs:
+  create-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/checkout@v4
+
+      - if: startsWith(github.ref, 'refs/tags/v')
+        name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create ${{ github.ref_name }}
+
   examples:
     runs-on: ubuntu-latest
 
