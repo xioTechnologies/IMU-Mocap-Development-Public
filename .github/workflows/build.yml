@@ -125,7 +125,7 @@ jobs:
 
       - name: Sign and notarize
         run: |
-          codesign --options runtime --timestamp --sign 29X883CFTW "IMU Mocap Viewer.app"
+          codesign --deep --options runtime --timestamp --sign 29X883CFTW "IMU Mocap Viewer.app"
           brew install create-dmg
           create-dmg \
           --volname "IMU-Mocap-Viewer" \
@@ -199,12 +199,7 @@ jobs:
 
       - name: Create installer
         run: |
-          # TODO: Should we codesign all files under files/ recursively?
-          signtool.exe sign /sha1 ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} /tr http://timestamp.digicert.com /td SHA256 /fd SHA256 "files/IMU Mocap Viewer.exe"
-          signtool.exe verify /v /pa "files/IMU Mocap Viewer.exe"
-          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" WindowsInstaller.iss
-          signtool.exe sign /sha1 ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} /tr http://timestamp.digicert.com /td SHA256 /fd SHA256 "Output/IMU-Mocap-Viewer-Setup.exe"
-          signtool.exe verify /v /pa "Output/IMU-Mocap-Viewer-Setup.exe"
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /Ssigntool="signtool.exe sign /sha1 ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} /tr http://timestamp.digicert.com /td SHA256 /fd SHA256 $f" WindowsInstaller.iss
 
       - uses: actions/upload-artifact@v4
         with:
