@@ -207,9 +207,6 @@ jobs:
           smctl windows certsync
         shell: cmd
 
-      - name: Remove DoNotShip
-        run: del /S build/StandaloneWindows64/*DoNotShip/*
-
       - name: Create installer
         run: |
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "/Ssigntool=signtool.exe sign /sha1 ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} /tr http://timestamp.digicert.com /td SHA256 /fd SHA256 $f" WindowsInstaller.iss
