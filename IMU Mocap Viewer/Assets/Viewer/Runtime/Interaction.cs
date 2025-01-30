@@ -33,6 +33,7 @@ namespace Viewer.Runtime
 
         private Tool active = Tool.None;
 
+        private float notAllowedZoomCooldown = 0;
         private float distance = 0.1f;
         private float distanceVelocity;
 
@@ -153,19 +154,26 @@ namespace Viewer.Runtime
 
             if (Tracking)
             {
-                switch (click, rightClick, control)
+                notAllowedZoomCooldown = Mathf.Max(0, notAllowedZoomCooldown - Time.deltaTime);
+                if (scrollWheel != 0) notAllowedZoomCooldown = 0.3f; 
+                
+                switch (click, rightClick, control, notAllowedZoomCooldown > 0)
                 {
-                    case (false, true, false):
+                    case (false, true, false, _):
                         Orbit(viewDelta);
+                        notAllowedZoomCooldown = 0;
                         break;
-                    case (false, true, true):
+                    case (false, true, true, _):
                         NotAllowed();
                         break;
-                    case (true, false, _):
+                    case (true, false, _, _):
                         if (active != Tool.NotAllowed && viewDelta.magnitude < 0.001f)
                             Idle();
                         else
                             NotAllowed();
+                        break;
+                    case (_, _, _, true):
+                        NotAllowed();
                         break;
                     default:
                         Idle();
@@ -177,7 +185,9 @@ namespace Viewer.Runtime
 
                 return;
             }
-
+            
+            notAllowedZoomCooldown = 0;
+            
             Zoom(scrollWheel);
             UpdateCamera();
 
