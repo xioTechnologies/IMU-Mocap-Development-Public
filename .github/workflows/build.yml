@@ -21,7 +21,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release create ${{ github.ref_name }}
 
-  examples:
+  python-examples:
     runs-on: ubuntu-latest
 
     steps:
@@ -48,6 +48,28 @@ jobs:
           python animate_left_hand.py dont_block
           python animate_right_hand.py dont_block
           python logged_lower_body.py dont_block
+
+  python-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install twine
+          python -m pip install build
+
+      - name: Create distributions
+        run: python -m build
+
+      - if: startsWith(github.ref, 'refs/tags/v')
+        name: Publish Python package
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.TOKEN }}
+        run: python -m twine upload --verbose --repository pypi dist/* --skip-existing
 
   imu-mocap-viewer:
     runs-on: ${{ matrix.target[0] }}
